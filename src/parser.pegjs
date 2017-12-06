@@ -118,13 +118,13 @@ SortItem =
     };
   }
 
-NullOrder =
-  NULLS __ FIRST { return "FIRST"; }
-/ NULLS __ LAST { return "LAST"; }
-
 SortDir =
   ASC { return "ASC"; }
 / DESC { return "DESC"; }
+
+NullOrder =
+  NULLS __ FIRST { return "FIRST"; }
+/ NULLS __ LAST { return "LAST"; }
 
 LimitClause =
   LIMIT __ n:Int {
@@ -206,7 +206,12 @@ ComparisonCondition =
   }
 
 ComparisonOperator =
-  "=" / "!=" / "<" / "<=" / ">" / ">=" / "LIKE" / "IN" / "NOT" __ "IN"
+  "=" / "!=" / "<" / "<=" / ">" / ">="
+/ "LIKE"i { return 'LIKE'; }
+/ "IN"i { return 'IN'; }
+/ "NOT"i " " __ "IN"i { return 'NOT IN'; }
+/ "INCLUDES"i { return 'INCLUDES'; }
+/ "EXCLUDES"i { return 'EXCLUDES'; }
 
 ComparisonValue =
   SubQuery
@@ -243,7 +248,7 @@ ChildFieldList =
 
 ChildFieldListItem = FieldExpr
 
-Identifier = [a-zA-Z][0-9a-zA-Z_]+ { return text() }
+Identifier = [a-zA-Z][0-9a-zA-Z_]* { return text() }
 
 Literal =
   DateLiteral
