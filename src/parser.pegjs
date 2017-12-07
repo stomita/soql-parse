@@ -246,14 +246,22 @@ NullOrder =
 / NULLS __ LAST { return 'LAST'; }
 
 LimitClause =
-  LIMIT __ n:Int {
-    return parseInt(n, 10);
+  LIMIT __ value:LimitValue {
+    return value;
   }
 
+LimitValue =
+  NumberLiteral
+/ BindVariable
+
 OffsetClause =
-  OFFSET __ n:Int {
-    return parseInt(n, 10);
+  OFFSET __ value:OffsetValue {
+    return value;
   }
+
+OffsetValue =
+  NumberLiteral
+/ BindVariable
 
 SelectForClause =
   FOR __ VIEW { return 'VIEW'; }

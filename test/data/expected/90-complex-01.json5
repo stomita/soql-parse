@@ -36,7 +36,10 @@
       }],
     }],
     object: 'OpportunityContactRoles',
-    limit: 10,
+    limit: {
+      type: 'number',
+      value: 10,
+    },
   }],
   object: 'Opportunity',
   scope: 'Mine',
@@ -141,4 +144,12 @@
     direction: null,
     nullOrder: null,
   }],
+  limit: {
+    type: 'number',
+    value: 100,
+  },
+  offset: {
+    type: 'number',
+    value: 200,
+  },
 }
