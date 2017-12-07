@@ -28,6 +28,7 @@ Query =
   sort:(__ OrderByClause)?
   limit:(__ LimitClause)?
   offset:(__ OffsetClause)?
+  selectFor:(__ SelectForClause)?
   _ {
     return assign(
       {
@@ -40,7 +41,8 @@ Query =
       group ? { group: group[1] } : {},
       sort ? { sort: sort[1] } : {},
       limit ? { limit: limit[1] } : {},
-      offset ? { offset: offset[1] } : {}
+      offset ? { offset: offset[1] } : {},
+      selectFor ? { selectFor: selectFor[1] } : {}
     );
   }
 
@@ -232,12 +234,12 @@ SortItem =
   }
 
 SortDir =
-  ASC { return "ASC"; }
-/ DESC { return "DESC"; }
+  ASC { return 'ASC'; }
+/ DESC { return 'DESC'; }
 
 NullOrder =
-  NULLS __ FIRST { return "FIRST"; }
-/ NULLS __ LAST { return "LAST"; }
+  NULLS __ FIRST { return 'FIRST'; }
+/ NULLS __ LAST { return 'LAST'; }
 
 LimitClause =
   LIMIT __ n:Int {
@@ -248,6 +250,10 @@ OffsetClause =
   OFFSET __ n:Int {
     return parseInt(n, 10);
   }
+
+SelectForClause =
+  FOR __ VIEW { return 'VIEW'; }
+/ FOR __ REFERENCE { return 'REFERENCE'; }
 
 SubQuery =
   LPAREN
@@ -420,6 +426,9 @@ FIRST    = "FIRST"i
 LAST     = "LAST"i
 LIMIT    = "LIMIT"i
 OFFSET   = "OFFSET"i
+FOR      = "FOR"i
+VIEW     = "VIEW"i
+REFERENCE = "REFERENCE"i
 TRUE     = "TRUE"i
 FALSE    = "FALSE"i
 NULL     = "NULL"i
