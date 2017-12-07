@@ -1,0 +1,19 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }],
+  object: 'Account',
+  sort: [{
+    field: {
+      type: 'FieldReference',
+      path: ['CreatedDate'],
+    },
+    direction: null,
+    nullOrder: null,
+  }],
+}
