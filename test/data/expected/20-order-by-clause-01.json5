@@ -13,7 +13,5 @@
       type: 'FieldReference',
       path: ['CreatedDate'],
     },
-    direction: null,
-    nullOrder: null,
   }],
 }

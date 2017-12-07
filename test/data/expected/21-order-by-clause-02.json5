@@ -21,6 +21,5 @@
       path: ['CreatedDate'],
     },
     direction: 'DESC',
-    nullOrder: null,
   }],
 }

@@ -40,8 +40,6 @@
       type: 'FieldReference',
       path: ['Type'],
     },
-    direction: null,
-    nullOrder: null,
   }, {
     field: {
       type: 'FunctionCall',
@@ -52,6 +50,5 @@
       }],
     },
     direction: 'ASC',
-    nullOrder: null,
   }],
 }

@@ -141,8 +141,6 @@
       type: 'FieldReference',
       path: ['CreatedDate'],
     },
-    direction: null,
-    nullOrder: null,
   }],
   limit: {
     type: 'number',

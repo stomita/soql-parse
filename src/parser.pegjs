@@ -230,11 +230,11 @@ SortItem =
   field:FieldExpr
   direction:(__ SortDir)?
   nullOrder:(__ NullOrder)? {
-    return {
-      field: field,
-      direction: direction && direction[1],
-      nullOrder: nullOrder && nullOrder[1],
-    };
+    return assign(
+      { field: field },
+      direction ? { direction: direction[1] } : {},
+      nullOrder ? { nullOrder: nullOrder[1] } : {}
+    );
   }
 
 SortDir =
