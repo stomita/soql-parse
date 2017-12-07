@@ -100,8 +100,42 @@ FieldPath =
   }
 
 FromClause =
-  FROM __ object:Identifier {
-    return object;
+  FROM __
+  object:ObjectReference
+  aliasObjects:(_ COMMA _ AliasObjectList)? {
+    return (
+      aliasObjects ?
+      assign({}, object, { aliasObjects: aliasObjects[3] }) :
+      object
+    );
+  }
+
+ObjectReference =
+  name:Identifier alias:((AS __)? Identifier)? {
+    return assign(
+      {
+        type: 'ObjectReference',
+        name: name,
+      },
+      alias ? { alias: alias[1] } : {}
+    );
+  }
+
+AliasObjectList =
+  head:AliasObjectReference _ COMMA _ tail:AliasObjectList {
+    return [head].concat(tail || []);
+  }
+/ AliasObjectReference
+
+AliasObjectReference =
+  path:FieldPath alias:((AS __)? Identifier)? {
+    return assign(
+      {
+        type: 'AliasObjectReference',
+        path: path
+      },
+      alias ? { alias: alias[1] } : {}
+    );
   }
 
 ScopeClause =
@@ -434,6 +468,7 @@ __ "whitespaces" =
 
 SELECT   = "SELECT"i
 FROM     = "FROM"i
+AS       = "AS"i
 USING    = "USING"i
 SCOPE    = "SCOPE"i
 WHERE    = "WHERE"i

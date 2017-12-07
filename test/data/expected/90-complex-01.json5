@@ -35,13 +35,19 @@
         path: ['Contact', 'Account', 'NumberOfEmployees'],
       }],
     }],
-    object: 'OpportunityContactRoles',
+    object: {
+      type: 'ObjectReference',
+      name: 'OpportunityContactRoles',
+    },
     limit: {
       type: 'number',
       value: 10,
     },
   }],
-  object: 'Opportunity',
+  object: {
+    type: 'ObjectReference',
+    name: 'Opportunity',
+  },
   scope: 'Mine',
   condition: {
     type: 'LogicalCondition',

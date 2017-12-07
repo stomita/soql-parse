@@ -21,5 +21,8 @@
       path: ['Amount'],
     }],
   }],
-  object: 'Opportunity',
+  object: {
+    type: 'ObjectReference',
+    name: 'Opportunity',
+  },
 }

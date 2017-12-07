@@ -15,7 +15,13 @@
       type: 'FieldReference',
       path: ['Name'],
     }],
-    object: 'Contacts',
+    object: {
+      type: 'ObjectReference',
+      name: 'Contacts',
+    },
   }],
-  object: 'Account',
+  object: {
+    type: 'ObjectReference',
+    name: 'Account',
+  },
 }

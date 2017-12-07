@@ -11,7 +11,10 @@
     type: 'FieldReference',
     path: ['Type'],
   }],
-  object: 'Account',
+  object: {
+    type: 'ObjectReference',
+    name: 'Account',
+  },
   group: {
     type: 'Grouping',
     fields: [{

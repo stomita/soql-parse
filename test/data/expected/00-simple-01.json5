@@ -4,5 +4,8 @@
     type: 'FieldReference',
     path: ['Name'],
   }],
-  object: 'Account',
+  object: {
+    type: 'ObjectReference',
+    name: 'Account',
+  },
 }
