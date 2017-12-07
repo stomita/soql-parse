@@ -1,0 +1,2 @@
+SELECT count(Id), Type FROM Account
+GROUP BY Type

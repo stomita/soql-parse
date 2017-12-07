@@ -1,0 +1,22 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FunctionCall',
+    name: 'count',
+    arguments: [{
+      type: 'FieldReference',
+      path: ['Id'],
+    }],
+  }, {
+    type: 'FieldReference',
+    path: ['Type'],
+  }],
+  object: 'Account',
+  group: {
+    type: 'Grouping',
+    fields: [{
+      type: 'FieldReference',
+      path: ['Type'],
+    }],
+  },
+}

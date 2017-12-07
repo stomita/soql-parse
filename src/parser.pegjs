@@ -195,8 +195,11 @@ GroupByClause =
       fields: fields
     };
   }
-/ GROUP __ BY __ items:GroupItemList {
-    return items;
+/ GROUP __ BY __ fields:GroupItemList {
+    return {
+      type: 'Grouping',
+      fields: fields,
+    };
   }
 
 GroupItemList =

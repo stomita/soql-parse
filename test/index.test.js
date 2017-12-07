@@ -32,8 +32,11 @@ fs.readdirSync(PARSABLE_DIR)
       try {
         parsed = parse(soql);
       } catch (e) {
-        const indicator = getSyntaxErrorIndicator(soql, e.location);
-        const message = `${e.message}\n\n[${name}]\n${indicator}`;
+        let message = e.message;
+        if (e.location) {
+          const indicator = getSyntaxErrorIndicator(soql, e.location);
+          message = `${message}\n\n[${name}]\n${indicator}`;
+        }
         t.fail(message);
       }
       t.deepEqual(parsed, expected);
