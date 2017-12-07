@@ -1,0 +1,6 @@
+SELECT Id, Name FROM Account
+WHERE Type IN ('Partner', 'Customer')
+OR (
+  CALENDAR_YEAR(CreatedDate) IN (2016, 2017)
+  AND CALENDAR_MONTH(CreatedDate) NOT IN (2, 4, 6, 9, 11)
+)

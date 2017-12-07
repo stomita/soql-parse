@@ -299,7 +299,10 @@ BindVariable =
 
 ListLiteral =
   LPAREN _ values:LiteralList _ RPAREN {
-    return values;
+    return {
+      type: 'list',
+      values: values,
+    };
   }
 
 LiteralList =

@@ -1,0 +1,91 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }],
+  object: 'Account',
+  condition: {
+    type: 'LogicalCondition',
+    operator: 'OR',
+    left: {
+      type: 'ComparisonCondition',
+      operator: 'IN',
+      field: {
+        type: 'FieldReference',
+        path: ['Type'],
+      },
+      value: {
+        type: 'list',
+        values: [{
+          type: 'string',
+          value: 'Partner',
+        }, {
+          type: 'string',
+          value: 'Customer',
+        }],
+      },
+    },
+    right: {
+      type: 'LogicalCondition',
+      operator: 'AND',
+      left: {
+        type: 'ComparisonCondition',
+        operator: 'IN',
+        field: {
+          type: 'FunctionCall',
+          name: 'CALENDAR_YEAR',
+          arguments: [{
+            type: 'FieldReference',
+            path: ['CreatedDate'],
+          }],
+        },
+        value: {
+          type: 'list',
+          values: [{
+            type: 'number',
+            value: 2016,
+          }, {
+            type: 'number',
+            value: 2017,
+          }],
+        },
+      },
+      right: {
+        type: 'ComparisonCondition',
+        operator: 'NOT IN',
+        field: {
+          type: 'FunctionCall',
+          name: 'CALENDAR_MONTH',
+          arguments: [{
+            type: 'FieldReference',
+            path: ['CreatedDate'],
+          }],
+        },
+        value: {
+          type: 'list',
+          values: [{
+            type: 'number',
+            value: 2,
+          }, {
+            type: 'number',
+            value: 4,
+          }, {
+            type: 'number',
+            value: 6,
+          }, {
+            type: 'number',
+            value: 9,
+          }, {
+            type: 'number',
+            value: 11,
+          }],
+        },
+      },
+      parentheses: true,
+    },
+  }
+}
