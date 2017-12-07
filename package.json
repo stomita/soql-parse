@@ -1,6 +1,7 @@
 {
   "name": "soql-parse",
   "version": "1.0.0",
+  "module": "src/index.js",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
@@ -8,7 +9,6 @@
     "build": "npm run build:parser && npm run build:src",
     "build:parser": "pegjs -o lib/parser.js src/parser.pegjs",
     "build:src": "babel src -d lib",
-    "pretest": "npm run build",
     "test": "ava"
   },
   "devDependencies": {
