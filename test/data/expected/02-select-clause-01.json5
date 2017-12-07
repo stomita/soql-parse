@@ -1,0 +1,14 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }, {
+    type: 'FieldReference',
+    path: ['Owner', 'Name'],
+  }],
+  object: 'Account',
+}

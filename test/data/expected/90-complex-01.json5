@@ -1,0 +1,144 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }, {
+    type: 'FieldReference',
+    path: ['Owner', 'Id'],
+  }, {
+    type: 'FunctionCall',
+    name: 'toLabel',
+    arguments: [{
+      type: 'FieldReference',
+      path: ['StageName'],
+    }],
+  }, {
+    type: 'Query',
+    fields: [{
+      type: 'FieldReference',
+      path: ['Id'],
+    }, {
+      type: 'FieldReference',
+      path: ['Contact', 'Id'],
+    }, {
+      type: 'FieldReference',
+      path: ['Contact', 'Name'],
+    }, {
+      type: 'FunctionCall',
+      name: 'format',
+      arguments: [{
+        type: 'FieldReference',
+        path: ['Contact', 'Account', 'NumberOfEmployees'],
+      }],
+    }],
+    object: 'OpportunityContactRoles',
+    limit: 10,
+  }],
+  object: 'Opportunity',
+  scope: 'Mine',
+  condition: {
+    type: 'LogicalCondition',
+    operator: 'OR',
+    left: {
+      type: 'LogicalCondition',
+      operator: 'OR',
+      left: {
+        type: 'ComparisonCondition',
+        operator: 'LIKE',
+        field: {
+          type: 'FieldReference',
+          path: ['Account', 'Name'],
+        },
+        value: {
+          type: 'string',
+          value: "O'reilly%",
+        },
+      },
+      right: {
+        type: 'LogicalCondition',
+        operator: 'AND',
+        left: {
+          type: 'NegateCondition',
+          operator: 'NOT',
+          condition: {
+            type: 'LogicalCondition',
+            operator: 'AND',
+            left: {
+              type: 'ComparisonCondition',
+              operator: '=',
+              field: {
+                type: 'FunctionCall',
+                name: 'CALENDAR_MONTH',
+                arguments: [{
+                  type: 'FieldReference',
+                  path: ['CreatedDate'],
+                }],
+              },
+              value: {
+                type: 'number',
+                value: 10,
+              },
+            },
+            right: {
+              type: 'ComparisonCondition',
+              operator: '>',
+              field: {
+                type: 'FieldReference',
+                path: ['CreatedDate'],
+              },
+              value: {
+                type: 'date',
+                value: '2015-12-31',
+              },
+            },
+            parentheses: true,
+          },
+          parentheses: true,
+        },
+        right: {
+          type: 'ComparisonCondition',
+          operator: '=',
+          field: {
+            type: 'FieldReference',
+            path: ['Owner', 'Name'],
+          },
+          value: {
+            type: 'string',
+            value: 'Hello',
+          },
+        }
+      },
+    },
+    right: {
+      type: 'ComparisonCondition',
+      operator: '>',
+      field: {
+        type: 'FieldReference',
+        path: ['Probability'],
+      },
+      value: {
+        type: 'number',
+        value: 99.5,
+      },
+    },
+  },
+  sort: [{
+    field: {
+      type: 'FieldReference',
+      path: ['Account', 'Type'],
+    },
+    direction: 'DESC',
+    nullOrder: 'LAST',
+  }, {
+    field: {
+      type: 'FieldReference',
+      path: ['CreatedDate'],
+    },
+    direction: null,
+    nullOrder: null,
+  }],
+}

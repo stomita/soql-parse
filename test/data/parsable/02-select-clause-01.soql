@@ -1,0 +1,2 @@
+SELECT Id, Name, Owner.Name
+FROM Account

@@ -1,0 +1,4 @@
+SELECT Id, Name FROM Account
+WHERE Name LIKE 'A%'
+OR Type = 'Partner'
+AND Owner.Username!= 'user01@example.com'

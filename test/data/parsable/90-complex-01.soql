@@ -1,0 +1,22 @@
+SELECT
+  Id, Name, Owner.Id, toLabel(StageName),
+  (SELECT Id, Contact.Id, Contact.Name, format(Contact.Account.NumberOfEmployees)
+   FROM OpportunityContactRoles
+   LIMIT 10)
+FROM Opportunity
+USING SCOPE Mine
+WHERE
+  Account.Name LIKE 'O\'reilly%'
+OR
+  (NOT (
+    CALENDAR_MONTH(CreatedDate) = 10
+  AND
+    CreatedDate > 2015-12-31
+  ))
+AND
+  Owner.Name = 'Hello'
+OR
+  Probability > 99.5
+ORDER BY
+  Account.Type DESC NULLS LAST,
+  CreatedDate

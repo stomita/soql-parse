@@ -1,0 +1,56 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }],
+  object: 'Account',
+  condition: {
+    type: 'LogicalCondition',
+    operator: 'AND',
+    left: {
+      type: 'LogicalCondition',
+      operator: 'OR',
+      left: {
+        type: 'ComparisonCondition',
+        operator: 'LIKE',
+        field: {
+          type: 'FieldReference',
+          path: ['Name'],
+        },
+        value: {
+          type: 'string',
+          value: 'A%',
+        },
+      },
+      right: {
+        type: 'ComparisonCondition',
+        operator: '=',
+        field: {
+          type: 'FieldReference',
+          path: ['Type'],
+        },
+        value: {
+          type: 'string',
+          value: 'Partner',
+        },
+      },
+      parentheses: true,
+    },
+    right: {
+      type: 'ComparisonCondition',
+      operator: '!=',
+      field: {
+        type: 'FieldReference',
+        path: ['Owner', 'Username'],
+      },
+      value: {
+        type: 'string',
+        value: 'user01@example.com',
+      },
+    },
+  }
+}

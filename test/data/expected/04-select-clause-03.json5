@@ -1,0 +1,21 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }, {
+    type: 'Query',
+    fields: [{
+      type: 'FieldReference',
+      path: ['Id'],
+    }, {
+      type: 'FieldReference',
+      path: ['Name'],
+    }],
+    object: 'Contacts',
+  }],
+  object: 'Account',
+}

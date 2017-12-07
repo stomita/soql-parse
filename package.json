@@ -15,10 +15,13 @@
     "ava": "^0.24.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "json5": "^0.5.1",
     "pegjs": "^0.10.0"
   },
   "ava": {
-    "require": [ "babel-register" ],
+    "require": [
+      "babel-register"
+    ],
     "babel": "inherit"
   }
 }

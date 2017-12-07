@@ -1,0 +1,2 @@
+SELECT Id, Name FROM Account
+WHERE Name='Apple'

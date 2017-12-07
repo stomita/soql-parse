@@ -1,0 +1,25 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }, {
+    type: 'FunctionCall',
+    name: 'toLabel',
+    arguments: [{
+      type: 'FieldReference',
+      path: ['Account', 'Type'],
+    }],
+  }, {
+    type: 'FunctionCall',
+    name: 'convertCurrency',
+    arguments: [{
+      type: 'FieldReference',
+      path: ['Amount'],
+    }],
+  }],
+  object: 'Opportunity',
+}

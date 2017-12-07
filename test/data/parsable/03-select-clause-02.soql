@@ -1,0 +1,5 @@
+SELECT
+  Id, Name,
+  toLabel(Account.Type),
+  convertCurrency(Amount)
+FROM Opportunity

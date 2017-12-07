@@ -1,0 +1,39 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }],
+  object: 'Account',
+  condition: {
+    type: 'LogicalCondition',
+    operator: 'AND',
+    left: {
+      type: 'ComparisonCondition',
+      operator: '=',
+      field: {
+        type: 'FieldReference',
+        path: ['Name'],
+      },
+      value: {
+        type: 'string',
+        value: 'Apple',
+      },
+    },
+    right: {
+      type: 'ComparisonCondition',
+      operator: '=',
+      field: {
+        type: 'FieldReference',
+        path: ['Owner', 'Active'],
+      },
+      value: {
+        type: 'boolean',
+        value: true,
+      },
+    }
+  }
+}

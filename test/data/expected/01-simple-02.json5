@@ -1,0 +1,8 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Name'],
+  }],
+  object: 'Account',
+}

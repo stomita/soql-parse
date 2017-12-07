@@ -1,0 +1,23 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }],
+  object: 'Account',
+  condition: {
+    type: 'ComparisonCondition',
+    operator: '=',
+    field: {
+      type: 'FieldReference',
+      path: ['Name'],
+    },
+    value: {
+      type: 'string',
+      value: 'Apple',
+    },
+  },
+}
