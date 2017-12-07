@@ -178,6 +178,7 @@ ComparisonOperator =
 
 ComparisonValue =
   SubQuery
+/ ListLiteral
 / Literal
 / BindVariable
 
@@ -286,6 +287,8 @@ SubQueryFieldList =
 
 SubQueryFieldListItem = FieldExpr
 
+Identifier = [a-zA-Z][0-9a-zA-Z_]* { return text() }
+
 BindVariable =
   COLON identifier:Identifier {
     return {
@@ -294,7 +297,16 @@ BindVariable =
     };
   }
 
-Identifier = [a-zA-Z][0-9a-zA-Z_]* { return text() }
+ListLiteral =
+  LPAREN _ values:LiteralList _ RPAREN {
+    return values;
+  }
+
+LiteralList =
+  head:Literal _ COMMA _ tail:LiteralList {
+    return [head].concat(tail);
+  }
+/ Literal
 
 Literal =
   DateLiteral
