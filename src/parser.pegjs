@@ -62,7 +62,7 @@ QueryField =
   field:FieldExpr alias:(__ name:Identifier & { return !/^FROM$/i.test(name); })? {
     return (
       alias ?
-      assign({}, field, { alias: alias[0] }) :
+      assign({}, field, { alias: alias[1] }) :
       field
     );
   }

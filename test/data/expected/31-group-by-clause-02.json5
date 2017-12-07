@@ -1,0 +1,38 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FunctionCall',
+    name: 'count',
+    arguments: [{
+      type: 'FieldReference',
+      path: ['Id'],
+    }],
+    alias: 'Cnt',
+  }, {
+    type: 'FieldReference',
+    path: ['Type'],
+  }, {
+    type: 'FunctionCall',
+    name: 'CALENDAR_YEAR',
+    arguments: [{
+      type: 'FieldReference',
+      path: ['CreatedDate'],
+    }],
+    alias: 'Year',
+  }],
+  object: 'Account',
+  group: {
+    type: 'Grouping',
+    fields: [{
+      type: 'FieldReference',
+      path: ['Type'],
+    }, {
+      type: 'FunctionCall',
+      name: 'CALENDAR_YEAR',
+      arguments: [{
+        type: 'FieldReference',
+        path: ['CreatedDate'],
+      }],
+    }],
+  },
+}

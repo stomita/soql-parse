@@ -1,0 +1,3 @@
+SELECT count(Id) Cnt, Type, CALENDAR_YEAR(CreatedDate) Year FROM Account
+GROUP BY Type, CALENDAR_YEAR(CreatedDate)
+ORDER BY Type, count(Id) ASC
