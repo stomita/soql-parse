@@ -1,52 +1,76 @@
+{
+  function assign() {
+    return Object.assign.apply(null, arguments);
+  }
+
+  function createLogicalConditionTree(operator, head, tail) {
+    var result = head;
+    for (var i = 0; i < tail.length; i++) {
+      result = {
+        type: 'LogicalCondition',
+        operator: operator,
+        left: result,
+        right: tail[i],
+      };
+    }
+    return result;
+  }
+}
+
+
 Query =
-  __
-  SELECT                 __
-  fields:FieldList       __
-  object:FromClause      __
-  scope:ScopeClause?     __
-  condition:WhereClause? __
-  group:GroupByClause?   __
-  sort:OrderByClause?    __
-  limit:LimitClause?     __
-  offset:OffsetClause?   __ {
-    return Object.assign(
+  _ SELECT
+  __ fields:QueryFieldList
+  __ object:FromClause
+  scope:(__ ScopeClause)?
+  condition:(__ WhereClause)?
+  group:(__ GroupByClause)?
+  sort:(__ OrderByClause)?
+  limit:(__ LimitClause)?
+  offset:(__ OffsetClause)?
+  _ {
+    return assign(
       {
         type: 'Query',
         fields: fields,
         object: object,
       },
-      scope ? { scope: scope } : {},
-      condition ? { condition: condition } : {},
-      group ? { group: group } : {},
-      sort ? { sort: sort } : {},
-      typeof limit === 'number' ? { limit: limit } : {},
-      typeof offset === 'number' ? { offset: offset } : {}
+      scope ? { scope: scope[1] } : {},
+      condition ? { condition: condition[1] } : {},
+      group ? { group: group[1] } : {},
+      sort ? { sort: sort[1] } : {},
+      limit ? { limit: limit[1] } : {},
+      offset ? { offset: offset[1] } : {}
     );
   }
 
-FieldList =
-  head:FieldListItem __ COMMA __ tail:FieldList {
+QueryFieldList =
+  head:QueryFieldListItem _ COMMA _ tail:QueryFieldList {
     return [head].concat(tail);
   }
-/ field:FieldListItem {
+/ field:QueryFieldListItem {
     return [field]
   }
 
-FromClause =
-  FROM __ object:Identifier {
-    return object;
-  }
-
-FieldListItem =
+QueryFieldListItem =
   SubQuery
-/ FieldExpr
+/ QueryField
+
+QueryField =
+  field:FieldExpr alias:(__ name:Identifier & { return !/^FROM$/i.test(name); })? {
+    return (
+      alias ?
+      assign({}, field, { alias: alias[0] }) :
+      field
+    );
+  }
 
 FieldExpr =
   FunctionCall
 / FieldReference
 
 FunctionCall =
-  func:Identifier __ LPAREN __ args:FunctionArg* __ RPAREN {
+  func:Identifier _ LPAREN _ args:FunctionArg* _ RPAREN {
     return {
       type: 'FunctionCall',
       name: func,
@@ -66,11 +90,16 @@ FieldReference =
   }
 
 FieldPath =
-  head:Identifier __ DOT __ tail:FieldPath {
+  head:Identifier _ DOT _ tail:FieldPath {
     return [head].concat(tail);
   }
 / field:Identifier {
     return [field];
+  }
+
+FromClause =
+  FROM __ object:Identifier {
+    return object;
   }
 
 ScopeClause =
@@ -91,10 +120,92 @@ WhereClause =
     return condition
   }
 
-GroupByClause =
-  GROUP __ BY __ {
-    return null;
+Condition =
+  OrCondition
+
+OrCondition =
+  head:AndCondition tail:(__ OR __ condition:AndCondition { return condition; })* {
+    return createLogicalConditionTree('OR', head, tail);
   }
+
+AndCondition =
+  head:NotCondition tail:(__ AND __ condition:NotCondition { return condition; })* {
+    return createLogicalConditionTree('AND', head, tail);
+  }
+
+NotCondition =
+  NOT __ condition:ParenCondition {
+    return {
+      type: 'NegateCondition',
+      operator: 'NOT',
+      condition: condition,
+    };
+  }
+/ ParenCondition
+
+ParenCondition =
+  LPAREN _ condition:Condition _ RPAREN {
+    return assign({}, condition, { parentheses: true });
+  }
+/ ComparisonCondition
+
+ComparisonCondition =
+  field:FieldExpr
+  operator:(
+      _ o:SpecialCharComparisonOperator _ { return o; }
+    / __ o:ComparisonOperator __ { return o; }
+  )
+  value:ComparisonValue {
+    return {
+      type: 'ComparisonCondition',
+      field: field,
+      operator: operator,
+      value: value,
+    };
+  }
+
+SpecialCharComparisonOperator =
+  "=" / "!=" / "<" / "<=" / ">" / ">="
+
+ComparisonOperator =
+  "LIKE"i { return 'LIKE'; }
+/ "IN"i { return 'IN'; }
+/ "NOT"i __ "IN"i { return 'NOT IN'; }
+/ "INCLUDES"i { return 'INCLUDES'; }
+/ "EXCLUDES"i { return 'EXCLUDES'; }
+
+ComparisonValue =
+  SubQuery
+/ Literal
+/ BindVariable
+
+GroupByClause =
+  GROUP __ BY __ ROLLUP _ LPAREN _ fields:GroupItemList _ RPAREN {
+    return {
+      type: 'RollupGrouping',
+      fields: fields
+    };
+  }
+/ GROUP __ BY __ CUBE _ LPAREN _ fields:GroupItemList _ RPAREN {
+    return {
+      type: 'CubeGrouping',
+      fields: fields
+    };
+  }
+/ GROUP __ BY __ items:GroupItemList {
+    return items;
+  }
+
+GroupItemList =
+  head:GroupItem _ COMMA _ tail:GroupItemList {
+    return [head].concat(tail);
+  }
+/ group:GroupItem {
+    return [group];
+  }
+
+GroupItem =
+  FieldExpr
 
 OrderByClause =
   ORDER __ BY __ sort:SortItemList {
@@ -102,7 +213,7 @@ OrderByClause =
   }
 
 SortItemList =
-  head:SortItem __ COMMA __ tail:SortItemList {
+  head:SortItem _ COMMA _ tail:SortItemList {
     return [head].concat(tail);
   }
 / sort:SortItem {
@@ -110,11 +221,13 @@ SortItemList =
   }
 
 SortItem =
-  field:FieldExpr __ direction:SortDir? __ nullOrder:NullOrder? {
+  field:FieldExpr
+  direction:(__ SortDir)?
+  nullOrder:(__ NullOrder)? {
     return {
       field: field,
-      direction: direction,
-      nullOrder: nullOrder,
+      direction: direction && direction[1],
+      nullOrder: nullOrder && nullOrder[1],
     };
   }
 
@@ -136,117 +249,44 @@ OffsetClause =
     return parseInt(n, 10);
   }
 
-Condition =
-  OrCondition
-
-OrCondition =
-  LPAREN __ left:Condition __ RPAREN __ OR __ right:OrCondition {
-    return {
-      type: 'LogicalCondition',
-      operator: 'OR',
-      left: Object.assign({}, left, { parentheses: true }),
-      right: right
-    };
-  }
-/ left:AndCondition __ OR __ right:Condition {
-    return {
-      type: 'LogicalCondition',
-      operator: 'OR',
-      left: left,
-      right: right
-    };
-  }
-/ AndCondition
-
-AndCondition =
-  LPAREN __ left:Condition __ RPAREN __ AND __ right:AndCondition {
-    return {
-      type: 'LogicalCondition',
-      operator: 'AND',
-      left: Object.assign({}, left, { parentheses: true }),
-      right: right
-    };
-  }
-/ left:NotCondition __ AND __ right:AndCondition {
-    return {
-      type: 'LogicalCondition',
-      operator: 'AND',
-      left: left,
-      right: right,
-    };
-  }
-/ NotCondition
-
-NotCondition =
-  ComparisonCondition
-/ NOT __ LPAREN __ condition:Condition __ RPAREN {
-    return {
-      type: 'NegateCondition',
-      operator: 'NOT',
-      condition: Object.assign({}, condition, { parentheses: true }),
-      parentheses: true
-    };
-  }
-/ NOT __ condition:ComparisonCondition {
-    return {
-      type: 'NegateCondition',
-      operator: 'NOT',
-      condition: condition
-    };
-  }
-
-ComparisonCondition =
-  field:FieldExpr __ operator:ComparisonOperator __ value:ComparisonValue {
-    return {
-      type: 'ComparisonCondition',
-      field: field,
-      operator: operator,
-      value: value,
-    };
-  }
-
-ComparisonOperator =
-  "=" / "!=" / "<" / "<=" / ">" / ">="
-/ "LIKE"i { return 'LIKE'; }
-/ "IN"i { return 'IN'; }
-/ "NOT"i " " __ "IN"i { return 'NOT IN'; }
-/ "INCLUDES"i { return 'INCLUDES'; }
-/ "EXCLUDES"i { return 'EXCLUDES'; }
-
-ComparisonValue =
-  SubQuery
-/ Literal
-
 SubQuery =
-  LPAREN                 __
-  SELECT                 __
-  fields:ChildFieldList  __
-  object:FromClause      __
-  condition:WhereClause? __
-  sort:OrderByClause?    __
-  limit:LimitClause?     __
-  RPAREN {
-    return Object.assign(
+  LPAREN
+  _ SELECT
+  __ fields:SubQueryFieldList
+  __ object:FromClause
+  condition:(__ WhereClause)?
+  sort:(__ OrderByClause)?
+  limit:(__ LimitClause)?
+  _ RPAREN {
+    return assign(
       {
         type: 'Query',
         fields: fields,
         object: object,
       },
-      condition ? { condition: condition } : {},
-      sort ? { sort: sort } : {},
-      typeof limit === 'number' ? { limit: limit } : {}
+      condition ? { condition: condition[1] } : {},
+      sort ? { sort: sort[1] } : {},
+      limit ? { limit: limit[1] } : {}
     );
   }
 
-ChildFieldList =
-  head:ChildFieldListItem __ COMMA __ tail:ChildFieldList {
+SubQueryFieldList =
+  head:SubQueryFieldListItem _ COMMA _ tail:SubQueryFieldList {
     return [head].concat(tail);
   }
-/ field:ChildFieldListItem {
+/ field:SubQueryFieldListItem {
     return [field]
   }
 
-ChildFieldListItem = FieldExpr
+SubQueryFieldListItem = FieldExpr
+
+BindVariable =
+  COLON identifier:Identifier {
+    return {
+      type: 'BindVariable',
+      identifier: identifier,
+    };
+  }
 
 Identifier = [a-zA-Z][0-9a-zA-Z_]* { return text() }
 
@@ -266,10 +306,8 @@ NumberLiteral =
   }
 
 Number =
-  int_:Int frac:Frac exp:Exp __ { return parseFloat(int_ + frac + exp); }
-/ int_:Int frac:Frac __         { return parseFloat(int_ + frac); }
-/ int_:Int exp:Exp __           { return parseFloat(int_ + exp); }
-/ int_:Int __                   { return parseFloat(int_); }
+  int_:Int frac:Frac         { return parseFloat(int_ + frac); }
+/ int_:Int                   { return parseFloat(int_); }
 
 Int
   = digit19:Digit19 digits:Digits { return digit19 + digits; }
@@ -280,9 +318,6 @@ Int
 Frac
   = "." digits:Digits { return "." + digits; }
 
-Exp
-  = e:E digits:Digits { return e + digits; }
-
 Digits
   = digits:Digit+ { return digits.join(""); }
 
@@ -291,9 +326,6 @@ Digit19 = [1-9]
 
 HexDigit
   = [0-9a-fA-F]
-
-E
-  = e:[eE] sign:[+-]? { return e + (sign !== null ? sign: ''); }
 
 StringLiteral =
   QUOTE ca:(SingleChar*) QUOTE {
@@ -357,9 +389,13 @@ DOT    = "."
 LPAREN = "("
 RPAREN = ")"
 QUOTE  = "'"
+COLON  = ":"
+
+_ "spacer" =
+  [ \t\n\r]*
 
 __ "whitespaces" =
-  [ \t\n\r]*
+  [ \t\n\r]+
 
 
 // Keywords
@@ -374,6 +410,8 @@ AND      = "AND"i
 NOT      = "NOT"i
 GROUP    = "GROUP"i
 BY       = "BY"i
+ROLLUP   = "ROLLUP"i
+CUBE     = "CUBE"i
 ORDER    = "ORDER"i
 ASC      = "ASC"i
 DESC     = "DESC"i

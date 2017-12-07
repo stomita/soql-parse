@@ -6,8 +6,23 @@ test('parse simple SOQL to AST', (t) => {
   t.true(typeof parsed === 'object');
 });
 
-test('parse complex SOQL to AST', (t) => {
-  const ast = parse(`
+test('parse SOQL with where clause', (t) => {
+  let parsed = parse(`
+    SELECT Id, Name FROM Account
+    WHERE Name LIKE 'A%' AND Type = 'A' OR Type != 'B'
+  `);
+  console.log(JSON.stringify(parsed, null, 4));
+  t.true(typeof parsed === 'object');
+  parsed = parse(`
+    SELECT Id, Name FROM Account
+    WHERE Name LIKE 'A%' AND (Type = 'A' OR Type != 'B')
+  `);
+  console.log(JSON.stringify(parsed, null, 4));
+  t.true(typeof parsed === 'object');
+});
+
+test('parse complex SOQL', (t) => {
+  const soql = `
     SELECT
       Id, Name, Owner.Id, toLabel(StageName),
       (SELECT Id, Contact.Id, Contact.Name, format(Contact.Account.NumberOfEmployees)
@@ -30,8 +45,8 @@ test('parse complex SOQL to AST', (t) => {
     ORDER BY
       Account.Type DESC NULLS LAST,
       CreatedDate
-  `);
-  // console.log(JSON.stringify(ast, null, 4));
+  `;
+  const ast = parse(soql);
   t.deepEqual(ast, {
     type: 'Query',
     fields: [{
@@ -78,21 +93,21 @@ test('parse complex SOQL to AST', (t) => {
       type: 'LogicalCondition',
       operator: 'OR',
       left: {
-        type: 'ComparisonCondition',
-        operator: 'LIKE',
-        field: {
-          type: 'FieldReference',
-          path: ['Account', 'Name'],
-        },
-        value: {
-          type: 'string',
-          value: "O'reilly%",
-        },
-      },
-      right: {
         type: 'LogicalCondition',
         operator: 'OR',
         left: {
+          type: 'ComparisonCondition',
+          operator: 'LIKE',
+          field: {
+            type: 'FieldReference',
+            path: ['Account', 'Name'],
+          },
+          value: {
+            type: 'string',
+            value: "O'reilly%",
+          },
+        },
+        right: {
           type: 'LogicalCondition',
           operator: 'AND',
           left: {
@@ -146,19 +161,19 @@ test('parse complex SOQL to AST', (t) => {
             },
           }
         },
-        right: {
-          type: 'ComparisonCondition',
-          operator: '>',
-          field: {
-            type: 'FieldReference',
-            path: ['Probability'],
-          },
-          value: {
-            type: 'number',
-            value: 99.5,
-          },
+      },
+      right: {
+        type: 'ComparisonCondition',
+        operator: '>',
+        field: {
+          type: 'FieldReference',
+          path: ['Probability'],
         },
-      }
+        value: {
+          type: 'number',
+          value: 99.5,
+        },
+      },
     },
     sort: [{
       field: {
