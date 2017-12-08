@@ -1,0 +1,28 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }, {
+    type: 'FieldReference',
+    path: ['Amount'],
+  }, {
+    type: 'FieldReference',
+    path: ['a', 'Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['a', 'Name'],
+  }],
+  object: {
+    type: 'ObjectReference',
+    name: 'Opportunity',
+    aliasObjects: [{
+      type: 'AliasObjectReference',
+      path: ['Opportunity', 'Account'],
+      alias: 'a'
+    }],
+  },
+}

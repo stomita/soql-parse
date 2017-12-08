@@ -1,0 +1,2 @@
+SELECT Id, Name, Amount, a.Id, a.Name
+FROM Opportunity, Opportunity.Account AS a

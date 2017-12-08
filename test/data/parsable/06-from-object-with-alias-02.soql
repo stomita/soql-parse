@@ -1,0 +1,2 @@
+SELECT o.Id, o.Name, o.Amount, a.Id, a.Name, u.Username
+FROM Opportunity o, o.Account a, a.Owner u
