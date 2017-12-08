@@ -1,27 +1,19 @@
 {
   "name": "soql-parse",
   "version": "1.0.0",
-  "module": "src/index.js",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
     "prepare": "npm run build",
-    "build": "npm run build:parser && npm run build:src",
-    "build:parser": "pegjs -o lib/parser.js src/parser.pegjs",
-    "build:src": "babel src -d lib",
+    "build": "npm run build:parser && npm run build:web",
+    "build:parser": "pegjs -o lib/index.js src/parser.pegjs",
+    "build:web": "webpack lib/index.js dist/soql-parse.js --output-library SOQLParse",
     "test": "ava"
   },
   "devDependencies": {
     "ava": "^0.24.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
     "json5": "^0.5.1",
-    "pegjs": "^0.10.0"
-  },
-  "ava": {
-    "require": [
-      "babel-register"
-    ],
-    "babel": "inherit"
+    "pegjs": "^0.10.0",
+    "webpack": "^3.10.0"
   }
 }

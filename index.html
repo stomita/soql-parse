@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SOQL Parse Demo</title>
+    <style>
+@import "https://unpkg.com/@salesforce-ux/design-system@2.4.5/assets/styles/salesforce-lightning-design-system.css";
+html, body {
+  height: 100%;
+}
+#app {
+  height: 100%;
+}
+#input {
+  height: 30%;
+}
+#result {
+  height: calc(70% - 100px);
+}
+#buttons {
+  height: 50px;
+}
+#soql, #output, #error {
+  width: 100%;
+  height: calc(100% - 50px);
+}
+#parse {
+  text-align: center;
+}
+#error {
+  color: #ff0000;
+}
+    </style>
+  </head>
+  <body class="slds">
+    <div id="app" class="slds-p-around_medium">
+      <h1 class="slds-text-heading_large slds-p-vertical_small">SOQL Parse Demo</h1>
+      <div id="input">
+        <label class="slds-form-element__label" for="soql">Input SOQL to parse</label>
+        <textarea
+          id="soql"
+          class="slds-textarea"
+          placeholder="SELECT Id FROM Account WHERE Name LIKE 'A%'"
+        ></textarea>
+      </div>
+      <div id="buttons" class="slds-align_absolute-center">
+        <button id="parse" class="slds-button slds-button--brand">Parse</button>
+      </div>
+      <div id="result" class="slds-grid">
+        <div class="slds-col slds-p-right_small">
+          <label class="slds-form-element__label" for="output">Parsed result (AST)</label>
+          <textarea
+            id="output"
+            class="slds-textarea"
+            readonly
+          ></textarea>
+        </div>
+        <div class="slds-col slds-m-left_small">
+          <label class="slds-form-element__label" for="error">Errors in parsing</label>
+          <textarea
+            id="error"
+            class="slds-textarea"
+            readonly
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <script src="./dist/soql-parse.js"></script>
+    <script>
+(function() {
+  var soqlEl = document.getElementById('soql');
+  var outputEl = document.getElementById('output');
+  var errorEl = document.getElementById('error');
+  var parseBtn = document.getElementById('parse');
+  parseBtn.addEventListener('click', function() {
+    var soql = soqlEl.value;
+    try {
+      var ast = SOQLParse.parse(soql);
+      outputEl.value = JSON.stringify(ast, null, 4);
+      errorEl.value = '';
+    } catch(e) {
+      var message = e.message;
+      if (e.location) {
+        message += '\nline:' + e.location.start.line + ', column:' + e.location.start.column;
+      }
+      outputEl.value = '';
+      errorEl.value = message;
+    }
+  });
+})()
+    </script>
+  </body>
+</html>
