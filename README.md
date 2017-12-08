@@ -21,3 +21,7 @@ const parsed = parse(soql);
 
 // { type; 'Query', fields: [...], object: { } }
 ```
+
+## Online Demo
+
+https://stomita.github.io/soql-parse/
