@@ -20,10 +20,10 @@ npm install soql-parse
 import { parse } from 'soql-parse';
 
 const soql = `
-  SELECT Id from Account
-  WHERE Name LIKE 'A%' and Type IN ('Partner', 'Customer')
-  ORDER BY CreatedDate DESC
-  LIMIT 10
+Select Id, Name, toLabel(Type) from Account
+WHERE Name like 'A%' and Type IN ('Partner', 'Customer')
+ORDER by CreatedDate DESC
+LIMIT 10
 `;
 
 const parsed = parse(soql);
@@ -40,6 +40,24 @@ Result:
             "type": "FieldReference",
             "path": [
                 "Id"
+            ]
+        },
+        {
+            "type": "FieldReference",
+            "path": [
+                "Name"
+            ]
+        },
+        {
+            "type": "FunctionCall",
+            "name": "toLabel",
+            "arguments": [
+                {
+                    "type": "FieldReference",
+                    "path": [
+                        "Type"
+                    ]
+                }
             ]
         }
     ],
