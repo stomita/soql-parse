@@ -2,6 +2,8 @@
 
 Parse [SOQL] query string to abstract syntax tree.
 
+[![Build Status](https://travis-ci.org/stomita/soql-parse.svg?branch=master)](https://travis-ci.org/stomita/soql-parse)
+
 ## Install
 
 ```
