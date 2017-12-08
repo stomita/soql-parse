@@ -1,6 +1,6 @@
 # soql-parse
 
-Parse [SOQL] query string to abstract syntax tree in JavaScript.
+Parse [SOQL](https://developer.salesforce.com/docs/atlas.en-us.soql_sosl.meta/soql_sosl/sforce_api_calls_soql.htm) query string to abstract syntax tree in JavaScript.
 
 [![Build Status](https://travis-ci.org/stomita/soql-parse.svg?branch=master)](https://travis-ci.org/stomita/soql-parse)
 
