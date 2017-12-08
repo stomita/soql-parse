@@ -15,6 +15,10 @@
     }
     return result;
   }
+
+  function isReserved(word) {
+    return /^(SELECT|FROM|AS|USING|WHERE|AND|OR|NOT|GROUP|BY|ORDER|LIMIT|OFFSET|FOR|TRUE|FALSE|NULL)$/i.test(word);
+  }
 }
 
 
@@ -59,7 +63,7 @@ QueryFieldListItem =
 / QueryField
 
 QueryField =
-  field:FieldExpr alias:(__ name:Identifier & { return !/^FROM$/i.test(name); })? {
+  field:FieldExpr alias:(__ Identifier)? {
     return (
       alias ?
       assign({}, field, { alias: alias[1] }) :
@@ -111,13 +115,13 @@ FromClause =
   }
 
 ObjectReference =
-  name:Identifier alias:((AS __)? Identifier)? {
+  name:Identifier alias:(__ (AS __)? Identifier)? {
     return assign(
       {
         type: 'ObjectReference',
         name: name,
       },
-      alias ? { alias: alias[1] } : {}
+      alias ? { alias: alias[2] } : {}
     );
   }
 
@@ -125,16 +129,18 @@ AliasObjectList =
   head:AliasObjectReference _ COMMA _ tail:AliasObjectList {
     return [head].concat(tail || []);
   }
-/ AliasObjectReference
+/ head:AliasObjectReference {
+    return [head];
+  }
 
 AliasObjectReference =
-  path:FieldPath alias:((AS __)? Identifier)? {
+  path:FieldPath alias:(__ (AS __)? Identifier)? {
     return assign(
       {
         type: 'AliasObjectReference',
         path: path
       },
-      alias ? { alias: alias[1] } : {}
+      alias ? { alias: alias[2] } : {}
     );
   }
 
@@ -332,7 +338,8 @@ SubQueryFieldList =
 
 SubQueryFieldListItem = FieldExpr
 
-Identifier = [a-zA-Z][0-9a-zA-Z_]* { return text() }
+Identifier =
+  id:([a-zA-Z][0-9a-zA-Z_]* { return text() }) & { return !isReserved(id) } { return id; }
 
 BindVariable =
   COLON identifier:Identifier {
