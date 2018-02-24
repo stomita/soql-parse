@@ -1,0 +1,1 @@
+SELECT Id, Name, CreatedDate FROM Account WHERE CreatedDate >= YESTERDAY

@@ -21,7 +21,6 @@
   }
 }
 
-
 Query =
   _ SELECT
   __ fields:QueryFieldList
@@ -207,7 +206,7 @@ ComparisonCondition =
   }
 
 SpecialCharComparisonOperator =
-  "=" / "!=" / "<" / "<=" / ">" / ">="
+  "=" / "!=" / "<=" / ">=" / "<" / ">"
 
 ComparisonOperator =
   "LIKE"i { return 'LIKE'; }
@@ -364,9 +363,10 @@ LiteralList =
 / Literal
 
 Literal =
-  DateLiteral
+  StringLiteral
+/ ISODateLiteral
+/ DateLiteral
 / NumberLiteral
-/ StringLiteral
 / BooleanLiteral
 / NullLiteral
 
@@ -393,6 +393,12 @@ Frac
 
 Digits
   = digits:Digit+ { return digits.join(""); }
+
+Integer2
+  = $(Digit Digit)
+
+Integer4
+  = $(Digit Digit Digit Digit)
 
 Digit   = [0-9]
 Digit19 = [1-9]
@@ -427,13 +433,270 @@ EscapeChar =
   return String.fromCharCode(parseInt("0x" + h1 + h2 + h3 + h4));
 }
 
-DateLiteral =
-  Digit Digit Digit Digit "-" Digit Digit "-" Digit Digit {
+ISODate
+ = Integer4 "-" Integer2 "-" Integer2
+
+ISOTZ
+    = "Z"
+    / $(("+" / "-") Integer2 ":" Integer2 )
+    / $(("+" / "-") Integer4 )
+
+DateFormatLiteral =
+  Integer4 "-" Integer2 "-" Integer2 {
     return {
       type: 'date',
       value: text()
     };
   }
+
+ISOTime
+    = $(Integer2 ":" Integer2 ":" Integer2)
+
+ISODateLiteral
+    = d:ISODate t:$("T" ISOTime)? z:$ISOTZ? {
+        return {
+          type: t || z ? 'datetime' : 'date',
+          value: text()
+        }
+    }
+
+DateLiteral =
+  d:TODAY {
+    return {
+      type: 'dateLiteral',
+      value: text()
+    }
+  }
+/ d:YESTERDAY {
+    return {
+      type: 'dateLiteral',
+      value: text()
+    }
+}
+/ d:TOMORROW {
+    return {
+      type: 'dateLiteral',
+      value: text()
+    }
+}
+/ d:LAST_WEEK {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:THIS_WEEK {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:NEXT_WEEK {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:LAST_MONTH {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:THIS_MONTH {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:NEXT_MONTH {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:LAST_90_DAYS {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:NEXT_90_DAYS {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:THIS_QUARTER {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:LAST_QUARTER {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:NEXT_QUARTER {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:THIS_YEAR {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:LAST_YEAR {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:NEXT_YEAR {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:THIS_FISCAL_QUARTER {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:LAST_FISCAL_QUARTER {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:NEXT_FISCAL_QUARTER {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:THIS_FISCAL_YEAR {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:LAST_FISCAL_YEAR {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:NEXT_FISCAL_YEAR {
+  return {
+    type: 'dateLiteral',
+    value: text()
+  }
+}
+/ d:LAST_N_DAYS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:NEXT_N_DAYS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:NEXT_N_WEEKS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:LAST_N_WEEKS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:NEXT_N_MONTHS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:LAST_N_MONTHS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:NEXT_N_QUARTERS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:LAST_N_QUARTERS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:NEXT_N_YEARS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:LAST_N_YEARS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:NEXT_N_FISCAL_QUARTERS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:LAST_N_FISCAL_QUARTERS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:NEXT_N_FISCAL_YEARS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
+/ d:LAST_N_FISCAL_YEARS n:$(Digit+) {
+  return {
+    type: 'dateLiteral',
+    value: text(),
+    variable: n
+  }
+}
 
 BooleanLiteral =
   TRUE {
@@ -500,3 +763,43 @@ REFERENCE = "REFERENCE"i
 TRUE     = "TRUE"i
 FALSE    = "FALSE"i
 NULL     = "NULL"i
+
+// Date Literals
+
+YESTERDAY = "YESTERDAY"i
+TODAY = "TODAY"i
+TOMORROW = "TOMORROW"i
+LAST_WEEK = "LAST_WEEK"i
+THIS_WEEK = "THIS_WEEK"i
+NEXT_WEEK = "NEXT_WEEK"i
+LAST_MONTH = "LAST_MONTH"i
+THIS_MONTH = "THIS_MONTH"i
+NEXT_MONTH = "NEXT_MONTH"i
+LAST_90_DAYS = "LAST_90_DAYS"i
+NEXT_90_DAYS = "NEXT_90_DAYS"i
+THIS_QUARTER = "THIS_QUARTER"i
+LAST_QUARTER = "LAST_QUARTER"i
+NEXT_QUARTER = "NEXT_QUARTER"i
+THIS_YEAR = "THIS_YEAR"i
+LAST_YEAR = "LAST_YEAR"i
+NEXT_YEAR = "NEXT_YEAR"i
+THIS_FISCAL_QUARTER = "THIS_FISCAL_QUARTER"i
+LAST_FISCAL_QUARTER = "LAST_FISCAL_QUARTER"i
+NEXT_FISCAL_QUARTER = "NEXT_FISCAL_QUARTER"i
+THIS_FISCAL_YEAR = "THIS_FISCAL_YEAR"i
+LAST_FISCAL_YEAR = "LAST_FISCAL_YEAR"i
+NEXT_FISCAL_YEAR = "NEXT_FISCAL_YEAR"i
+LAST_N_DAYS = "LAST_N_DAYS:"i
+NEXT_N_DAYS = "NEXT_N_DAYS:"i
+NEXT_N_WEEKS = "NEXT_N_WEEKS:"i
+LAST_N_WEEKS = "LAST_N_WEEKS:"i
+NEXT_N_MONTHS = "NEXT_N_MONTHS:"i
+LAST_N_MONTHS = "LAST_N_MONTHS:"i
+NEXT_N_QUARTERS = "NEXT_N_QUARTERS:"i
+LAST_N_QUARTERS = "LAST_N_QUARTERS:"i
+NEXT_N_YEARS = "NEXT_N_YEARS:"i
+LAST_N_YEARS = "LAST_N_YEARS:"i
+NEXT_N_FISCAL_QUARTERS = "NEXT_N_FISCAL_QUARTERS:"i
+LAST_N_FISCAL_QUARTERS = "LAST_N_FISCAL_QUARTERS:"i
+NEXT_N_FISCAL_YEARS = "NEXT_N_FISCAL_YEARS:"i
+LAST_N_FISCAL_YEARS = "LAST_N_FISCAL_YEARS:"i
