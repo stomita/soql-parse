@@ -62,7 +62,7 @@ QueryFieldListItem =
 / QueryField
 
 QueryField =
-  field:FieldExpr alias:(__ Identifier)? {
+  field:FieldExpr alias:(__? Identifier)? {
     return (
       alias ?
       assign({}, field, { alias: alias[1] }) :

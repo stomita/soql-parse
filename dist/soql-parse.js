@@ -1125,6 +1125,9 @@ function peg$parse(input, options) {
     if (s1 !== peg$FAILED) {
       s2 = peg$currPos;
       s3 = peg$parse__();
+      if (s3 === peg$FAILED) {
+        s3 = null;
+      }
       if (s3 !== peg$FAILED) {
         s4 = peg$parseIdentifier();
         if (s4 !== peg$FAILED) {
