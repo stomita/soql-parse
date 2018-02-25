@@ -23,7 +23,8 @@
     },
     value: {
       type: 'dateLiteral',
-      value: 'YESTERDAY',
+      value: 'LAST_N_DAYS',
+      argument: 1,
     },
   },
 }

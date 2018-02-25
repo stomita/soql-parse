@@ -599,102 +599,102 @@ DateLiteral =
     value: text()
   }
 }
-/ d:LAST_N_DAYS n:$(Digit+) {
+/ d:LAST_N_DAYS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:NEXT_N_DAYS n:$(Digit+) {
+/ d:NEXT_N_DAYS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:NEXT_N_WEEKS n:$(Digit+) {
+/ d:NEXT_N_WEEKS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:LAST_N_WEEKS n:$(Digit+) {
+/ d:LAST_N_WEEKS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:NEXT_N_MONTHS n:$(Digit+) {
+/ d:NEXT_N_MONTHS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:LAST_N_MONTHS n:$(Digit+) {
+/ d:LAST_N_MONTHS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:NEXT_N_QUARTERS n:$(Digit+) {
+/ d:NEXT_N_QUARTERS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:LAST_N_QUARTERS n:$(Digit+) {
+/ d:LAST_N_QUARTERS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:NEXT_N_YEARS n:$(Digit+) {
+/ d:NEXT_N_YEARS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:LAST_N_YEARS n:$(Digit+) {
+/ d:LAST_N_YEARS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:NEXT_N_FISCAL_QUARTERS n:$(Digit+) {
+/ d:NEXT_N_FISCAL_QUARTERS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:LAST_N_FISCAL_QUARTERS n:$(Digit+) {
+/ d:LAST_N_FISCAL_QUARTERS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:NEXT_N_FISCAL_YEARS n:$(Digit+) {
+/ d:NEXT_N_FISCAL_YEARS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
-/ d:LAST_N_FISCAL_YEARS n:$(Digit+) {
+/ d:LAST_N_FISCAL_YEARS c:":" n:$(Digit+) {
   return {
     type: 'dateLiteral',
-    value: text(),
-    variable: n
+    value: d,
+    argument: parseInt(n)
   }
 }
 
@@ -789,17 +789,17 @@ NEXT_FISCAL_QUARTER = "NEXT_FISCAL_QUARTER"i
 THIS_FISCAL_YEAR = "THIS_FISCAL_YEAR"i
 LAST_FISCAL_YEAR = "LAST_FISCAL_YEAR"i
 NEXT_FISCAL_YEAR = "NEXT_FISCAL_YEAR"i
-LAST_N_DAYS = "LAST_N_DAYS:"i
-NEXT_N_DAYS = "NEXT_N_DAYS:"i
-NEXT_N_WEEKS = "NEXT_N_WEEKS:"i
-LAST_N_WEEKS = "LAST_N_WEEKS:"i
-NEXT_N_MONTHS = "NEXT_N_MONTHS:"i
-LAST_N_MONTHS = "LAST_N_MONTHS:"i
-NEXT_N_QUARTERS = "NEXT_N_QUARTERS:"i
-LAST_N_QUARTERS = "LAST_N_QUARTERS:"i
-NEXT_N_YEARS = "NEXT_N_YEARS:"i
-LAST_N_YEARS = "LAST_N_YEARS:"i
-NEXT_N_FISCAL_QUARTERS = "NEXT_N_FISCAL_QUARTERS:"i
-LAST_N_FISCAL_QUARTERS = "LAST_N_FISCAL_QUARTERS:"i
-NEXT_N_FISCAL_YEARS = "NEXT_N_FISCAL_YEARS:"i
-LAST_N_FISCAL_YEARS = "LAST_N_FISCAL_YEARS:"i
+LAST_N_DAYS = "LAST_N_DAYS"i
+NEXT_N_DAYS = "NEXT_N_DAYS"i
+NEXT_N_WEEKS = "NEXT_N_WEEKS"i
+LAST_N_WEEKS = "LAST_N_WEEKS"i
+NEXT_N_MONTHS = "NEXT_N_MONTHS"i
+LAST_N_MONTHS = "LAST_N_MONTHS"i
+NEXT_N_QUARTERS = "NEXT_N_QUARTERS"i
+LAST_N_QUARTERS = "LAST_N_QUARTERS"i
+NEXT_N_YEARS = "NEXT_N_YEARS"i
+LAST_N_YEARS = "LAST_N_YEARS"i
+NEXT_N_FISCAL_QUARTERS = "NEXT_N_FISCAL_QUARTERS"i
+LAST_N_FISCAL_QUARTERS = "LAST_N_FISCAL_QUARTERS"i
+NEXT_N_FISCAL_YEARS = "NEXT_N_FISCAL_YEARS"i
+LAST_N_FISCAL_YEARS = "LAST_N_FISCAL_YEARS"i

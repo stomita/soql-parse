@@ -429,8 +429,8 @@
                                                 operator: '=',
                                                 value: {
                                                    type: 'dateLiteral',
-                                                   value: 'LAST_N_DAYS:1',
-                                                   variable: '1'
+                                                   value: 'LAST_N_DAYS',
+                                                   argument: 1
                                                 }
                                              }
                                           },
@@ -443,8 +443,8 @@
                                              operator: '=',
                                              value: {
                                                 type: 'dateLiteral',
-                                                value: 'NEXT_N_DAYS:1',
-                                                variable: '1'
+                                                value: 'NEXT_N_DAYS',
+                                                argument: 1
                                              }
                                           }
                                        },
@@ -457,8 +457,8 @@
                                           operator: '=',
                                           value: {
                                              type: 'dateLiteral',
-                                             value: 'NEXT_N_WEEKS:1',
-                                             variable: '1'
+                                             value: 'NEXT_N_WEEKS',
+                                             argument: 1
                                           }
                                        }
                                     },
@@ -471,8 +471,8 @@
                                        operator: '=',
                                        value: {
                                           type: 'dateLiteral',
-                                          value: 'LAST_N_WEEKS:1',
-                                          variable: '1'
+                                          value: 'LAST_N_WEEKS',
+                                          argument: 1
                                        }
                                     }
                                  },
@@ -485,8 +485,8 @@
                                     operator: '=',
                                     value: {
                                        type: 'dateLiteral',
-                                       value: 'NEXT_N_MONTHS:1',
-                                       variable: '1'
+                                       value: 'NEXT_N_MONTHS',
+                                       argument: 1
                                     }
                                  }
                               },
@@ -499,8 +499,8 @@
                                  operator: '=',
                                  value: {
                                     type: 'dateLiteral',
-                                    value: 'LAST_N_MONTHS:1',
-                                    variable: '1'
+                                    value: 'LAST_N_MONTHS',
+                                    argument: 1
                                  }
                               }
                            },
@@ -513,8 +513,8 @@
                               operator: '=',
                               value: {
                                  type: 'dateLiteral',
-                                 value: 'NEXT_N_QUARTERS:1',
-                                 variable: '1'
+                                 value: 'NEXT_N_QUARTERS',
+                                 argument: 1
                               }
                            }
                         },
@@ -527,8 +527,8 @@
                            operator: '=',
                            value: {
                               type: 'dateLiteral',
-                              value: 'LAST_N_QUARTERS:1',
-                              variable: '1'
+                              value: 'LAST_N_QUARTERS',
+                              argument: 1
                            }
                         }
                      },
@@ -541,8 +541,8 @@
                         operator: '=',
                         value: {
                            type: 'dateLiteral',
-                           value: 'NEXT_N_YEARS:1',
-                           variable: '1'
+                           value: 'NEXT_N_YEARS',
+                           argument: 1
                         }
                      }
                   },
@@ -555,8 +555,8 @@
                      operator: '=',
                      value: {
                         type: 'dateLiteral',
-                        value: 'LAST_N_YEARS:1',
-                        variable: '1'
+                        value: 'LAST_N_YEARS',
+                        argument: 1
                      }
                   }
                },
@@ -569,8 +569,8 @@
                   operator: '=',
                   value: {
                      type: 'dateLiteral',
-                     value: 'NEXT_N_FISCAL_QUARTERS:1',
-                     variable: '1'
+                     value: 'NEXT_N_FISCAL_QUARTERS',
+                     argument: 1
                   }
                }
             },
@@ -583,8 +583,8 @@
                operator: '=',
                value: {
                   type: 'dateLiteral',
-                  value: 'LAST_N_FISCAL_QUARTERS:1',
-                  variable: '1'
+                  value: 'LAST_N_FISCAL_QUARTERS',
+                  argument: 1
                }
             }
          },
@@ -597,8 +597,8 @@
             operator: '=',
             value: {
                type: 'dateLiteral',
-               value: 'NEXT_N_FISCAL_YEARS:1',
-               variable: '1'
+               value: 'NEXT_N_FISCAL_YEARS',
+               argument: 1
             }
          }
       },
@@ -611,8 +611,8 @@
          operator: '=',
          value: {
             type: 'dateLiteral',
-            value: 'LAST_N_FISCAL_YEARS:1',
-            variable: '1'
+            value: 'LAST_N_FISCAL_YEARS',
+            argument: 1
          }
       }
    }

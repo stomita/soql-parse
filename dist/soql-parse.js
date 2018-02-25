@@ -542,11 +542,11 @@ function peg$parse(input, options) {
           value: text()
         }
       },
-      peg$c156 = function(d, n) {
+      peg$c156 = function(d, c, n) {
         return {
           type: 'dateLiteral',
-          value: text(),
-          variable: n
+          value: d,
+          argument: parseInt(n)
         }
       },
       peg$c157 = function() {
@@ -677,34 +677,34 @@ function peg$parse(input, options) {
       peg$c267 = peg$literalExpectation("LAST_FISCAL_YEAR", true),
       peg$c268 = "next_fiscal_year",
       peg$c269 = peg$literalExpectation("NEXT_FISCAL_YEAR", true),
-      peg$c270 = "last_n_days:",
-      peg$c271 = peg$literalExpectation("LAST_N_DAYS:", true),
-      peg$c272 = "next_n_days:",
-      peg$c273 = peg$literalExpectation("NEXT_N_DAYS:", true),
-      peg$c274 = "next_n_weeks:",
-      peg$c275 = peg$literalExpectation("NEXT_N_WEEKS:", true),
-      peg$c276 = "last_n_weeks:",
-      peg$c277 = peg$literalExpectation("LAST_N_WEEKS:", true),
-      peg$c278 = "next_n_months:",
-      peg$c279 = peg$literalExpectation("NEXT_N_MONTHS:", true),
-      peg$c280 = "last_n_months:",
-      peg$c281 = peg$literalExpectation("LAST_N_MONTHS:", true),
-      peg$c282 = "next_n_quarters:",
-      peg$c283 = peg$literalExpectation("NEXT_N_QUARTERS:", true),
-      peg$c284 = "last_n_quarters:",
-      peg$c285 = peg$literalExpectation("LAST_N_QUARTERS:", true),
-      peg$c286 = "next_n_years:",
-      peg$c287 = peg$literalExpectation("NEXT_N_YEARS:", true),
-      peg$c288 = "last_n_years:",
-      peg$c289 = peg$literalExpectation("LAST_N_YEARS:", true),
-      peg$c290 = "next_n_fiscal_quarters:",
-      peg$c291 = peg$literalExpectation("NEXT_N_FISCAL_QUARTERS:", true),
-      peg$c292 = "last_n_fiscal_quarters:",
-      peg$c293 = peg$literalExpectation("LAST_N_FISCAL_QUARTERS:", true),
-      peg$c294 = "next_n_fiscal_years:",
-      peg$c295 = peg$literalExpectation("NEXT_N_FISCAL_YEARS:", true),
-      peg$c296 = "last_n_fiscal_years:",
-      peg$c297 = peg$literalExpectation("LAST_N_FISCAL_YEARS:", true),
+      peg$c270 = "last_n_days",
+      peg$c271 = peg$literalExpectation("LAST_N_DAYS", true),
+      peg$c272 = "next_n_days",
+      peg$c273 = peg$literalExpectation("NEXT_N_DAYS", true),
+      peg$c274 = "next_n_weeks",
+      peg$c275 = peg$literalExpectation("NEXT_N_WEEKS", true),
+      peg$c276 = "last_n_weeks",
+      peg$c277 = peg$literalExpectation("LAST_N_WEEKS", true),
+      peg$c278 = "next_n_months",
+      peg$c279 = peg$literalExpectation("NEXT_N_MONTHS", true),
+      peg$c280 = "last_n_months",
+      peg$c281 = peg$literalExpectation("LAST_N_MONTHS", true),
+      peg$c282 = "next_n_quarters",
+      peg$c283 = peg$literalExpectation("NEXT_N_QUARTERS", true),
+      peg$c284 = "last_n_quarters",
+      peg$c285 = peg$literalExpectation("LAST_N_QUARTERS", true),
+      peg$c286 = "next_n_years",
+      peg$c287 = peg$literalExpectation("NEXT_N_YEARS", true),
+      peg$c288 = "last_n_years",
+      peg$c289 = peg$literalExpectation("LAST_N_YEARS", true),
+      peg$c290 = "next_n_fiscal_quarters",
+      peg$c291 = peg$literalExpectation("NEXT_N_FISCAL_QUARTERS", true),
+      peg$c292 = "last_n_fiscal_quarters",
+      peg$c293 = peg$literalExpectation("LAST_N_FISCAL_QUARTERS", true),
+      peg$c294 = "next_n_fiscal_years",
+      peg$c295 = peg$literalExpectation("NEXT_N_FISCAL_YEARS", true),
+      peg$c296 = "last_n_fiscal_years",
+      peg$c297 = peg$literalExpectation("LAST_N_FISCAL_YEARS", true),
 
       peg$currPos          = 0,
       peg$savedPos         = 0,
@@ -4023,7 +4023,7 @@ function peg$parse(input, options) {
   }
 
   function peg$parseDateLiteral() {
-    var s0, s1, s2, s3, s4;
+    var s0, s1, s2, s3, s4, s5;
 
     s0 = peg$currPos;
     s1 = peg$parseTODAY();
@@ -4212,26 +4212,38 @@ function peg$parse(input, options) {
                                                   s0 = peg$currPos;
                                                   s1 = peg$parseLAST_N_DAYS();
                                                   if (s1 !== peg$FAILED) {
-                                                    s2 = peg$currPos;
-                                                    s3 = [];
-                                                    s4 = peg$parseDigit();
-                                                    if (s4 !== peg$FAILED) {
-                                                      while (s4 !== peg$FAILED) {
-                                                        s3.push(s4);
-                                                        s4 = peg$parseDigit();
-                                                      }
+                                                    if (input.charCodeAt(peg$currPos) === 58) {
+                                                      s2 = peg$c147;
+                                                      peg$currPos++;
                                                     } else {
-                                                      s3 = peg$FAILED;
-                                                    }
-                                                    if (s3 !== peg$FAILED) {
-                                                      s2 = input.substring(s2, peg$currPos);
-                                                    } else {
-                                                      s2 = s3;
+                                                      s2 = peg$FAILED;
+                                                      if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                     }
                                                     if (s2 !== peg$FAILED) {
-                                                      peg$savedPos = s0;
-                                                      s1 = peg$c156(s1, s2);
-                                                      s0 = s1;
+                                                      s3 = peg$currPos;
+                                                      s4 = [];
+                                                      s5 = peg$parseDigit();
+                                                      if (s5 !== peg$FAILED) {
+                                                        while (s5 !== peg$FAILED) {
+                                                          s4.push(s5);
+                                                          s5 = peg$parseDigit();
+                                                        }
+                                                      } else {
+                                                        s4 = peg$FAILED;
+                                                      }
+                                                      if (s4 !== peg$FAILED) {
+                                                        s3 = input.substring(s3, peg$currPos);
+                                                      } else {
+                                                        s3 = s4;
+                                                      }
+                                                      if (s3 !== peg$FAILED) {
+                                                        peg$savedPos = s0;
+                                                        s1 = peg$c156(s1, s2, s3);
+                                                        s0 = s1;
+                                                      } else {
+                                                        peg$currPos = s0;
+                                                        s0 = peg$FAILED;
+                                                      }
                                                     } else {
                                                       peg$currPos = s0;
                                                       s0 = peg$FAILED;
@@ -4244,26 +4256,38 @@ function peg$parse(input, options) {
                                                     s0 = peg$currPos;
                                                     s1 = peg$parseNEXT_N_DAYS();
                                                     if (s1 !== peg$FAILED) {
-                                                      s2 = peg$currPos;
-                                                      s3 = [];
-                                                      s4 = peg$parseDigit();
-                                                      if (s4 !== peg$FAILED) {
-                                                        while (s4 !== peg$FAILED) {
-                                                          s3.push(s4);
-                                                          s4 = peg$parseDigit();
-                                                        }
+                                                      if (input.charCodeAt(peg$currPos) === 58) {
+                                                        s2 = peg$c147;
+                                                        peg$currPos++;
                                                       } else {
-                                                        s3 = peg$FAILED;
-                                                      }
-                                                      if (s3 !== peg$FAILED) {
-                                                        s2 = input.substring(s2, peg$currPos);
-                                                      } else {
-                                                        s2 = s3;
+                                                        s2 = peg$FAILED;
+                                                        if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                       }
                                                       if (s2 !== peg$FAILED) {
-                                                        peg$savedPos = s0;
-                                                        s1 = peg$c156(s1, s2);
-                                                        s0 = s1;
+                                                        s3 = peg$currPos;
+                                                        s4 = [];
+                                                        s5 = peg$parseDigit();
+                                                        if (s5 !== peg$FAILED) {
+                                                          while (s5 !== peg$FAILED) {
+                                                            s4.push(s5);
+                                                            s5 = peg$parseDigit();
+                                                          }
+                                                        } else {
+                                                          s4 = peg$FAILED;
+                                                        }
+                                                        if (s4 !== peg$FAILED) {
+                                                          s3 = input.substring(s3, peg$currPos);
+                                                        } else {
+                                                          s3 = s4;
+                                                        }
+                                                        if (s3 !== peg$FAILED) {
+                                                          peg$savedPos = s0;
+                                                          s1 = peg$c156(s1, s2, s3);
+                                                          s0 = s1;
+                                                        } else {
+                                                          peg$currPos = s0;
+                                                          s0 = peg$FAILED;
+                                                        }
                                                       } else {
                                                         peg$currPos = s0;
                                                         s0 = peg$FAILED;
@@ -4276,26 +4300,38 @@ function peg$parse(input, options) {
                                                       s0 = peg$currPos;
                                                       s1 = peg$parseNEXT_N_WEEKS();
                                                       if (s1 !== peg$FAILED) {
-                                                        s2 = peg$currPos;
-                                                        s3 = [];
-                                                        s4 = peg$parseDigit();
-                                                        if (s4 !== peg$FAILED) {
-                                                          while (s4 !== peg$FAILED) {
-                                                            s3.push(s4);
-                                                            s4 = peg$parseDigit();
-                                                          }
+                                                        if (input.charCodeAt(peg$currPos) === 58) {
+                                                          s2 = peg$c147;
+                                                          peg$currPos++;
                                                         } else {
-                                                          s3 = peg$FAILED;
-                                                        }
-                                                        if (s3 !== peg$FAILED) {
-                                                          s2 = input.substring(s2, peg$currPos);
-                                                        } else {
-                                                          s2 = s3;
+                                                          s2 = peg$FAILED;
+                                                          if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                         }
                                                         if (s2 !== peg$FAILED) {
-                                                          peg$savedPos = s0;
-                                                          s1 = peg$c156(s1, s2);
-                                                          s0 = s1;
+                                                          s3 = peg$currPos;
+                                                          s4 = [];
+                                                          s5 = peg$parseDigit();
+                                                          if (s5 !== peg$FAILED) {
+                                                            while (s5 !== peg$FAILED) {
+                                                              s4.push(s5);
+                                                              s5 = peg$parseDigit();
+                                                            }
+                                                          } else {
+                                                            s4 = peg$FAILED;
+                                                          }
+                                                          if (s4 !== peg$FAILED) {
+                                                            s3 = input.substring(s3, peg$currPos);
+                                                          } else {
+                                                            s3 = s4;
+                                                          }
+                                                          if (s3 !== peg$FAILED) {
+                                                            peg$savedPos = s0;
+                                                            s1 = peg$c156(s1, s2, s3);
+                                                            s0 = s1;
+                                                          } else {
+                                                            peg$currPos = s0;
+                                                            s0 = peg$FAILED;
+                                                          }
                                                         } else {
                                                           peg$currPos = s0;
                                                           s0 = peg$FAILED;
@@ -4308,26 +4344,38 @@ function peg$parse(input, options) {
                                                         s0 = peg$currPos;
                                                         s1 = peg$parseLAST_N_WEEKS();
                                                         if (s1 !== peg$FAILED) {
-                                                          s2 = peg$currPos;
-                                                          s3 = [];
-                                                          s4 = peg$parseDigit();
-                                                          if (s4 !== peg$FAILED) {
-                                                            while (s4 !== peg$FAILED) {
-                                                              s3.push(s4);
-                                                              s4 = peg$parseDigit();
-                                                            }
+                                                          if (input.charCodeAt(peg$currPos) === 58) {
+                                                            s2 = peg$c147;
+                                                            peg$currPos++;
                                                           } else {
-                                                            s3 = peg$FAILED;
-                                                          }
-                                                          if (s3 !== peg$FAILED) {
-                                                            s2 = input.substring(s2, peg$currPos);
-                                                          } else {
-                                                            s2 = s3;
+                                                            s2 = peg$FAILED;
+                                                            if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                           }
                                                           if (s2 !== peg$FAILED) {
-                                                            peg$savedPos = s0;
-                                                            s1 = peg$c156(s1, s2);
-                                                            s0 = s1;
+                                                            s3 = peg$currPos;
+                                                            s4 = [];
+                                                            s5 = peg$parseDigit();
+                                                            if (s5 !== peg$FAILED) {
+                                                              while (s5 !== peg$FAILED) {
+                                                                s4.push(s5);
+                                                                s5 = peg$parseDigit();
+                                                              }
+                                                            } else {
+                                                              s4 = peg$FAILED;
+                                                            }
+                                                            if (s4 !== peg$FAILED) {
+                                                              s3 = input.substring(s3, peg$currPos);
+                                                            } else {
+                                                              s3 = s4;
+                                                            }
+                                                            if (s3 !== peg$FAILED) {
+                                                              peg$savedPos = s0;
+                                                              s1 = peg$c156(s1, s2, s3);
+                                                              s0 = s1;
+                                                            } else {
+                                                              peg$currPos = s0;
+                                                              s0 = peg$FAILED;
+                                                            }
                                                           } else {
                                                             peg$currPos = s0;
                                                             s0 = peg$FAILED;
@@ -4340,26 +4388,38 @@ function peg$parse(input, options) {
                                                           s0 = peg$currPos;
                                                           s1 = peg$parseNEXT_N_MONTHS();
                                                           if (s1 !== peg$FAILED) {
-                                                            s2 = peg$currPos;
-                                                            s3 = [];
-                                                            s4 = peg$parseDigit();
-                                                            if (s4 !== peg$FAILED) {
-                                                              while (s4 !== peg$FAILED) {
-                                                                s3.push(s4);
-                                                                s4 = peg$parseDigit();
-                                                              }
+                                                            if (input.charCodeAt(peg$currPos) === 58) {
+                                                              s2 = peg$c147;
+                                                              peg$currPos++;
                                                             } else {
-                                                              s3 = peg$FAILED;
-                                                            }
-                                                            if (s3 !== peg$FAILED) {
-                                                              s2 = input.substring(s2, peg$currPos);
-                                                            } else {
-                                                              s2 = s3;
+                                                              s2 = peg$FAILED;
+                                                              if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                             }
                                                             if (s2 !== peg$FAILED) {
-                                                              peg$savedPos = s0;
-                                                              s1 = peg$c156(s1, s2);
-                                                              s0 = s1;
+                                                              s3 = peg$currPos;
+                                                              s4 = [];
+                                                              s5 = peg$parseDigit();
+                                                              if (s5 !== peg$FAILED) {
+                                                                while (s5 !== peg$FAILED) {
+                                                                  s4.push(s5);
+                                                                  s5 = peg$parseDigit();
+                                                                }
+                                                              } else {
+                                                                s4 = peg$FAILED;
+                                                              }
+                                                              if (s4 !== peg$FAILED) {
+                                                                s3 = input.substring(s3, peg$currPos);
+                                                              } else {
+                                                                s3 = s4;
+                                                              }
+                                                              if (s3 !== peg$FAILED) {
+                                                                peg$savedPos = s0;
+                                                                s1 = peg$c156(s1, s2, s3);
+                                                                s0 = s1;
+                                                              } else {
+                                                                peg$currPos = s0;
+                                                                s0 = peg$FAILED;
+                                                              }
                                                             } else {
                                                               peg$currPos = s0;
                                                               s0 = peg$FAILED;
@@ -4372,26 +4432,38 @@ function peg$parse(input, options) {
                                                             s0 = peg$currPos;
                                                             s1 = peg$parseLAST_N_MONTHS();
                                                             if (s1 !== peg$FAILED) {
-                                                              s2 = peg$currPos;
-                                                              s3 = [];
-                                                              s4 = peg$parseDigit();
-                                                              if (s4 !== peg$FAILED) {
-                                                                while (s4 !== peg$FAILED) {
-                                                                  s3.push(s4);
-                                                                  s4 = peg$parseDigit();
-                                                                }
+                                                              if (input.charCodeAt(peg$currPos) === 58) {
+                                                                s2 = peg$c147;
+                                                                peg$currPos++;
                                                               } else {
-                                                                s3 = peg$FAILED;
-                                                              }
-                                                              if (s3 !== peg$FAILED) {
-                                                                s2 = input.substring(s2, peg$currPos);
-                                                              } else {
-                                                                s2 = s3;
+                                                                s2 = peg$FAILED;
+                                                                if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                               }
                                                               if (s2 !== peg$FAILED) {
-                                                                peg$savedPos = s0;
-                                                                s1 = peg$c156(s1, s2);
-                                                                s0 = s1;
+                                                                s3 = peg$currPos;
+                                                                s4 = [];
+                                                                s5 = peg$parseDigit();
+                                                                if (s5 !== peg$FAILED) {
+                                                                  while (s5 !== peg$FAILED) {
+                                                                    s4.push(s5);
+                                                                    s5 = peg$parseDigit();
+                                                                  }
+                                                                } else {
+                                                                  s4 = peg$FAILED;
+                                                                }
+                                                                if (s4 !== peg$FAILED) {
+                                                                  s3 = input.substring(s3, peg$currPos);
+                                                                } else {
+                                                                  s3 = s4;
+                                                                }
+                                                                if (s3 !== peg$FAILED) {
+                                                                  peg$savedPos = s0;
+                                                                  s1 = peg$c156(s1, s2, s3);
+                                                                  s0 = s1;
+                                                                } else {
+                                                                  peg$currPos = s0;
+                                                                  s0 = peg$FAILED;
+                                                                }
                                                               } else {
                                                                 peg$currPos = s0;
                                                                 s0 = peg$FAILED;
@@ -4404,26 +4476,38 @@ function peg$parse(input, options) {
                                                               s0 = peg$currPos;
                                                               s1 = peg$parseNEXT_N_QUARTERS();
                                                               if (s1 !== peg$FAILED) {
-                                                                s2 = peg$currPos;
-                                                                s3 = [];
-                                                                s4 = peg$parseDigit();
-                                                                if (s4 !== peg$FAILED) {
-                                                                  while (s4 !== peg$FAILED) {
-                                                                    s3.push(s4);
-                                                                    s4 = peg$parseDigit();
-                                                                  }
+                                                                if (input.charCodeAt(peg$currPos) === 58) {
+                                                                  s2 = peg$c147;
+                                                                  peg$currPos++;
                                                                 } else {
-                                                                  s3 = peg$FAILED;
-                                                                }
-                                                                if (s3 !== peg$FAILED) {
-                                                                  s2 = input.substring(s2, peg$currPos);
-                                                                } else {
-                                                                  s2 = s3;
+                                                                  s2 = peg$FAILED;
+                                                                  if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                                 }
                                                                 if (s2 !== peg$FAILED) {
-                                                                  peg$savedPos = s0;
-                                                                  s1 = peg$c156(s1, s2);
-                                                                  s0 = s1;
+                                                                  s3 = peg$currPos;
+                                                                  s4 = [];
+                                                                  s5 = peg$parseDigit();
+                                                                  if (s5 !== peg$FAILED) {
+                                                                    while (s5 !== peg$FAILED) {
+                                                                      s4.push(s5);
+                                                                      s5 = peg$parseDigit();
+                                                                    }
+                                                                  } else {
+                                                                    s4 = peg$FAILED;
+                                                                  }
+                                                                  if (s4 !== peg$FAILED) {
+                                                                    s3 = input.substring(s3, peg$currPos);
+                                                                  } else {
+                                                                    s3 = s4;
+                                                                  }
+                                                                  if (s3 !== peg$FAILED) {
+                                                                    peg$savedPos = s0;
+                                                                    s1 = peg$c156(s1, s2, s3);
+                                                                    s0 = s1;
+                                                                  } else {
+                                                                    peg$currPos = s0;
+                                                                    s0 = peg$FAILED;
+                                                                  }
                                                                 } else {
                                                                   peg$currPos = s0;
                                                                   s0 = peg$FAILED;
@@ -4436,26 +4520,38 @@ function peg$parse(input, options) {
                                                                 s0 = peg$currPos;
                                                                 s1 = peg$parseLAST_N_QUARTERS();
                                                                 if (s1 !== peg$FAILED) {
-                                                                  s2 = peg$currPos;
-                                                                  s3 = [];
-                                                                  s4 = peg$parseDigit();
-                                                                  if (s4 !== peg$FAILED) {
-                                                                    while (s4 !== peg$FAILED) {
-                                                                      s3.push(s4);
-                                                                      s4 = peg$parseDigit();
-                                                                    }
+                                                                  if (input.charCodeAt(peg$currPos) === 58) {
+                                                                    s2 = peg$c147;
+                                                                    peg$currPos++;
                                                                   } else {
-                                                                    s3 = peg$FAILED;
-                                                                  }
-                                                                  if (s3 !== peg$FAILED) {
-                                                                    s2 = input.substring(s2, peg$currPos);
-                                                                  } else {
-                                                                    s2 = s3;
+                                                                    s2 = peg$FAILED;
+                                                                    if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                                   }
                                                                   if (s2 !== peg$FAILED) {
-                                                                    peg$savedPos = s0;
-                                                                    s1 = peg$c156(s1, s2);
-                                                                    s0 = s1;
+                                                                    s3 = peg$currPos;
+                                                                    s4 = [];
+                                                                    s5 = peg$parseDigit();
+                                                                    if (s5 !== peg$FAILED) {
+                                                                      while (s5 !== peg$FAILED) {
+                                                                        s4.push(s5);
+                                                                        s5 = peg$parseDigit();
+                                                                      }
+                                                                    } else {
+                                                                      s4 = peg$FAILED;
+                                                                    }
+                                                                    if (s4 !== peg$FAILED) {
+                                                                      s3 = input.substring(s3, peg$currPos);
+                                                                    } else {
+                                                                      s3 = s4;
+                                                                    }
+                                                                    if (s3 !== peg$FAILED) {
+                                                                      peg$savedPos = s0;
+                                                                      s1 = peg$c156(s1, s2, s3);
+                                                                      s0 = s1;
+                                                                    } else {
+                                                                      peg$currPos = s0;
+                                                                      s0 = peg$FAILED;
+                                                                    }
                                                                   } else {
                                                                     peg$currPos = s0;
                                                                     s0 = peg$FAILED;
@@ -4468,26 +4564,38 @@ function peg$parse(input, options) {
                                                                   s0 = peg$currPos;
                                                                   s1 = peg$parseNEXT_N_YEARS();
                                                                   if (s1 !== peg$FAILED) {
-                                                                    s2 = peg$currPos;
-                                                                    s3 = [];
-                                                                    s4 = peg$parseDigit();
-                                                                    if (s4 !== peg$FAILED) {
-                                                                      while (s4 !== peg$FAILED) {
-                                                                        s3.push(s4);
-                                                                        s4 = peg$parseDigit();
-                                                                      }
+                                                                    if (input.charCodeAt(peg$currPos) === 58) {
+                                                                      s2 = peg$c147;
+                                                                      peg$currPos++;
                                                                     } else {
-                                                                      s3 = peg$FAILED;
-                                                                    }
-                                                                    if (s3 !== peg$FAILED) {
-                                                                      s2 = input.substring(s2, peg$currPos);
-                                                                    } else {
-                                                                      s2 = s3;
+                                                                      s2 = peg$FAILED;
+                                                                      if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                                     }
                                                                     if (s2 !== peg$FAILED) {
-                                                                      peg$savedPos = s0;
-                                                                      s1 = peg$c156(s1, s2);
-                                                                      s0 = s1;
+                                                                      s3 = peg$currPos;
+                                                                      s4 = [];
+                                                                      s5 = peg$parseDigit();
+                                                                      if (s5 !== peg$FAILED) {
+                                                                        while (s5 !== peg$FAILED) {
+                                                                          s4.push(s5);
+                                                                          s5 = peg$parseDigit();
+                                                                        }
+                                                                      } else {
+                                                                        s4 = peg$FAILED;
+                                                                      }
+                                                                      if (s4 !== peg$FAILED) {
+                                                                        s3 = input.substring(s3, peg$currPos);
+                                                                      } else {
+                                                                        s3 = s4;
+                                                                      }
+                                                                      if (s3 !== peg$FAILED) {
+                                                                        peg$savedPos = s0;
+                                                                        s1 = peg$c156(s1, s2, s3);
+                                                                        s0 = s1;
+                                                                      } else {
+                                                                        peg$currPos = s0;
+                                                                        s0 = peg$FAILED;
+                                                                      }
                                                                     } else {
                                                                       peg$currPos = s0;
                                                                       s0 = peg$FAILED;
@@ -4500,26 +4608,38 @@ function peg$parse(input, options) {
                                                                     s0 = peg$currPos;
                                                                     s1 = peg$parseLAST_N_YEARS();
                                                                     if (s1 !== peg$FAILED) {
-                                                                      s2 = peg$currPos;
-                                                                      s3 = [];
-                                                                      s4 = peg$parseDigit();
-                                                                      if (s4 !== peg$FAILED) {
-                                                                        while (s4 !== peg$FAILED) {
-                                                                          s3.push(s4);
-                                                                          s4 = peg$parseDigit();
-                                                                        }
+                                                                      if (input.charCodeAt(peg$currPos) === 58) {
+                                                                        s2 = peg$c147;
+                                                                        peg$currPos++;
                                                                       } else {
-                                                                        s3 = peg$FAILED;
-                                                                      }
-                                                                      if (s3 !== peg$FAILED) {
-                                                                        s2 = input.substring(s2, peg$currPos);
-                                                                      } else {
-                                                                        s2 = s3;
+                                                                        s2 = peg$FAILED;
+                                                                        if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                                       }
                                                                       if (s2 !== peg$FAILED) {
-                                                                        peg$savedPos = s0;
-                                                                        s1 = peg$c156(s1, s2);
-                                                                        s0 = s1;
+                                                                        s3 = peg$currPos;
+                                                                        s4 = [];
+                                                                        s5 = peg$parseDigit();
+                                                                        if (s5 !== peg$FAILED) {
+                                                                          while (s5 !== peg$FAILED) {
+                                                                            s4.push(s5);
+                                                                            s5 = peg$parseDigit();
+                                                                          }
+                                                                        } else {
+                                                                          s4 = peg$FAILED;
+                                                                        }
+                                                                        if (s4 !== peg$FAILED) {
+                                                                          s3 = input.substring(s3, peg$currPos);
+                                                                        } else {
+                                                                          s3 = s4;
+                                                                        }
+                                                                        if (s3 !== peg$FAILED) {
+                                                                          peg$savedPos = s0;
+                                                                          s1 = peg$c156(s1, s2, s3);
+                                                                          s0 = s1;
+                                                                        } else {
+                                                                          peg$currPos = s0;
+                                                                          s0 = peg$FAILED;
+                                                                        }
                                                                       } else {
                                                                         peg$currPos = s0;
                                                                         s0 = peg$FAILED;
@@ -4532,26 +4652,38 @@ function peg$parse(input, options) {
                                                                       s0 = peg$currPos;
                                                                       s1 = peg$parseNEXT_N_FISCAL_QUARTERS();
                                                                       if (s1 !== peg$FAILED) {
-                                                                        s2 = peg$currPos;
-                                                                        s3 = [];
-                                                                        s4 = peg$parseDigit();
-                                                                        if (s4 !== peg$FAILED) {
-                                                                          while (s4 !== peg$FAILED) {
-                                                                            s3.push(s4);
-                                                                            s4 = peg$parseDigit();
-                                                                          }
+                                                                        if (input.charCodeAt(peg$currPos) === 58) {
+                                                                          s2 = peg$c147;
+                                                                          peg$currPos++;
                                                                         } else {
-                                                                          s3 = peg$FAILED;
-                                                                        }
-                                                                        if (s3 !== peg$FAILED) {
-                                                                          s2 = input.substring(s2, peg$currPos);
-                                                                        } else {
-                                                                          s2 = s3;
+                                                                          s2 = peg$FAILED;
+                                                                          if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                                         }
                                                                         if (s2 !== peg$FAILED) {
-                                                                          peg$savedPos = s0;
-                                                                          s1 = peg$c156(s1, s2);
-                                                                          s0 = s1;
+                                                                          s3 = peg$currPos;
+                                                                          s4 = [];
+                                                                          s5 = peg$parseDigit();
+                                                                          if (s5 !== peg$FAILED) {
+                                                                            while (s5 !== peg$FAILED) {
+                                                                              s4.push(s5);
+                                                                              s5 = peg$parseDigit();
+                                                                            }
+                                                                          } else {
+                                                                            s4 = peg$FAILED;
+                                                                          }
+                                                                          if (s4 !== peg$FAILED) {
+                                                                            s3 = input.substring(s3, peg$currPos);
+                                                                          } else {
+                                                                            s3 = s4;
+                                                                          }
+                                                                          if (s3 !== peg$FAILED) {
+                                                                            peg$savedPos = s0;
+                                                                            s1 = peg$c156(s1, s2, s3);
+                                                                            s0 = s1;
+                                                                          } else {
+                                                                            peg$currPos = s0;
+                                                                            s0 = peg$FAILED;
+                                                                          }
                                                                         } else {
                                                                           peg$currPos = s0;
                                                                           s0 = peg$FAILED;
@@ -4564,26 +4696,38 @@ function peg$parse(input, options) {
                                                                         s0 = peg$currPos;
                                                                         s1 = peg$parseLAST_N_FISCAL_QUARTERS();
                                                                         if (s1 !== peg$FAILED) {
-                                                                          s2 = peg$currPos;
-                                                                          s3 = [];
-                                                                          s4 = peg$parseDigit();
-                                                                          if (s4 !== peg$FAILED) {
-                                                                            while (s4 !== peg$FAILED) {
-                                                                              s3.push(s4);
-                                                                              s4 = peg$parseDigit();
-                                                                            }
+                                                                          if (input.charCodeAt(peg$currPos) === 58) {
+                                                                            s2 = peg$c147;
+                                                                            peg$currPos++;
                                                                           } else {
-                                                                            s3 = peg$FAILED;
-                                                                          }
-                                                                          if (s3 !== peg$FAILED) {
-                                                                            s2 = input.substring(s2, peg$currPos);
-                                                                          } else {
-                                                                            s2 = s3;
+                                                                            s2 = peg$FAILED;
+                                                                            if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                                           }
                                                                           if (s2 !== peg$FAILED) {
-                                                                            peg$savedPos = s0;
-                                                                            s1 = peg$c156(s1, s2);
-                                                                            s0 = s1;
+                                                                            s3 = peg$currPos;
+                                                                            s4 = [];
+                                                                            s5 = peg$parseDigit();
+                                                                            if (s5 !== peg$FAILED) {
+                                                                              while (s5 !== peg$FAILED) {
+                                                                                s4.push(s5);
+                                                                                s5 = peg$parseDigit();
+                                                                              }
+                                                                            } else {
+                                                                              s4 = peg$FAILED;
+                                                                            }
+                                                                            if (s4 !== peg$FAILED) {
+                                                                              s3 = input.substring(s3, peg$currPos);
+                                                                            } else {
+                                                                              s3 = s4;
+                                                                            }
+                                                                            if (s3 !== peg$FAILED) {
+                                                                              peg$savedPos = s0;
+                                                                              s1 = peg$c156(s1, s2, s3);
+                                                                              s0 = s1;
+                                                                            } else {
+                                                                              peg$currPos = s0;
+                                                                              s0 = peg$FAILED;
+                                                                            }
                                                                           } else {
                                                                             peg$currPos = s0;
                                                                             s0 = peg$FAILED;
@@ -4596,26 +4740,38 @@ function peg$parse(input, options) {
                                                                           s0 = peg$currPos;
                                                                           s1 = peg$parseNEXT_N_FISCAL_YEARS();
                                                                           if (s1 !== peg$FAILED) {
-                                                                            s2 = peg$currPos;
-                                                                            s3 = [];
-                                                                            s4 = peg$parseDigit();
-                                                                            if (s4 !== peg$FAILED) {
-                                                                              while (s4 !== peg$FAILED) {
-                                                                                s3.push(s4);
-                                                                                s4 = peg$parseDigit();
-                                                                              }
+                                                                            if (input.charCodeAt(peg$currPos) === 58) {
+                                                                              s2 = peg$c147;
+                                                                              peg$currPos++;
                                                                             } else {
-                                                                              s3 = peg$FAILED;
-                                                                            }
-                                                                            if (s3 !== peg$FAILED) {
-                                                                              s2 = input.substring(s2, peg$currPos);
-                                                                            } else {
-                                                                              s2 = s3;
+                                                                              s2 = peg$FAILED;
+                                                                              if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                                             }
                                                                             if (s2 !== peg$FAILED) {
-                                                                              peg$savedPos = s0;
-                                                                              s1 = peg$c156(s1, s2);
-                                                                              s0 = s1;
+                                                                              s3 = peg$currPos;
+                                                                              s4 = [];
+                                                                              s5 = peg$parseDigit();
+                                                                              if (s5 !== peg$FAILED) {
+                                                                                while (s5 !== peg$FAILED) {
+                                                                                  s4.push(s5);
+                                                                                  s5 = peg$parseDigit();
+                                                                                }
+                                                                              } else {
+                                                                                s4 = peg$FAILED;
+                                                                              }
+                                                                              if (s4 !== peg$FAILED) {
+                                                                                s3 = input.substring(s3, peg$currPos);
+                                                                              } else {
+                                                                                s3 = s4;
+                                                                              }
+                                                                              if (s3 !== peg$FAILED) {
+                                                                                peg$savedPos = s0;
+                                                                                s1 = peg$c156(s1, s2, s3);
+                                                                                s0 = s1;
+                                                                              } else {
+                                                                                peg$currPos = s0;
+                                                                                s0 = peg$FAILED;
+                                                                              }
                                                                             } else {
                                                                               peg$currPos = s0;
                                                                               s0 = peg$FAILED;
@@ -4628,26 +4784,38 @@ function peg$parse(input, options) {
                                                                             s0 = peg$currPos;
                                                                             s1 = peg$parseLAST_N_FISCAL_YEARS();
                                                                             if (s1 !== peg$FAILED) {
-                                                                              s2 = peg$currPos;
-                                                                              s3 = [];
-                                                                              s4 = peg$parseDigit();
-                                                                              if (s4 !== peg$FAILED) {
-                                                                                while (s4 !== peg$FAILED) {
-                                                                                  s3.push(s4);
-                                                                                  s4 = peg$parseDigit();
-                                                                                }
+                                                                              if (input.charCodeAt(peg$currPos) === 58) {
+                                                                                s2 = peg$c147;
+                                                                                peg$currPos++;
                                                                               } else {
-                                                                                s3 = peg$FAILED;
-                                                                              }
-                                                                              if (s3 !== peg$FAILED) {
-                                                                                s2 = input.substring(s2, peg$currPos);
-                                                                              } else {
-                                                                                s2 = s3;
+                                                                                s2 = peg$FAILED;
+                                                                                if (peg$silentFails === 0) { peg$fail(peg$c148); }
                                                                               }
                                                                               if (s2 !== peg$FAILED) {
-                                                                                peg$savedPos = s0;
-                                                                                s1 = peg$c156(s1, s2);
-                                                                                s0 = s1;
+                                                                                s3 = peg$currPos;
+                                                                                s4 = [];
+                                                                                s5 = peg$parseDigit();
+                                                                                if (s5 !== peg$FAILED) {
+                                                                                  while (s5 !== peg$FAILED) {
+                                                                                    s4.push(s5);
+                                                                                    s5 = peg$parseDigit();
+                                                                                  }
+                                                                                } else {
+                                                                                  s4 = peg$FAILED;
+                                                                                }
+                                                                                if (s4 !== peg$FAILED) {
+                                                                                  s3 = input.substring(s3, peg$currPos);
+                                                                                } else {
+                                                                                  s3 = s4;
+                                                                                }
+                                                                                if (s3 !== peg$FAILED) {
+                                                                                  peg$savedPos = s0;
+                                                                                  s1 = peg$c156(s1, s2, s3);
+                                                                                  s0 = s1;
+                                                                                } else {
+                                                                                  peg$currPos = s0;
+                                                                                  s0 = peg$FAILED;
+                                                                                }
                                                                               } else {
                                                                                 peg$currPos = s0;
                                                                                 s0 = peg$FAILED;
@@ -5586,9 +5754,9 @@ function peg$parse(input, options) {
   function peg$parseLAST_N_DAYS() {
     var s0;
 
-    if (input.substr(peg$currPos, 12).toLowerCase() === peg$c270) {
-      s0 = input.substr(peg$currPos, 12);
-      peg$currPos += 12;
+    if (input.substr(peg$currPos, 11).toLowerCase() === peg$c270) {
+      s0 = input.substr(peg$currPos, 11);
+      peg$currPos += 11;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c271); }
@@ -5600,9 +5768,9 @@ function peg$parse(input, options) {
   function peg$parseNEXT_N_DAYS() {
     var s0;
 
-    if (input.substr(peg$currPos, 12).toLowerCase() === peg$c272) {
-      s0 = input.substr(peg$currPos, 12);
-      peg$currPos += 12;
+    if (input.substr(peg$currPos, 11).toLowerCase() === peg$c272) {
+      s0 = input.substr(peg$currPos, 11);
+      peg$currPos += 11;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c273); }
@@ -5614,9 +5782,9 @@ function peg$parse(input, options) {
   function peg$parseNEXT_N_WEEKS() {
     var s0;
 
-    if (input.substr(peg$currPos, 13).toLowerCase() === peg$c274) {
-      s0 = input.substr(peg$currPos, 13);
-      peg$currPos += 13;
+    if (input.substr(peg$currPos, 12).toLowerCase() === peg$c274) {
+      s0 = input.substr(peg$currPos, 12);
+      peg$currPos += 12;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c275); }
@@ -5628,9 +5796,9 @@ function peg$parse(input, options) {
   function peg$parseLAST_N_WEEKS() {
     var s0;
 
-    if (input.substr(peg$currPos, 13).toLowerCase() === peg$c276) {
-      s0 = input.substr(peg$currPos, 13);
-      peg$currPos += 13;
+    if (input.substr(peg$currPos, 12).toLowerCase() === peg$c276) {
+      s0 = input.substr(peg$currPos, 12);
+      peg$currPos += 12;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c277); }
@@ -5642,9 +5810,9 @@ function peg$parse(input, options) {
   function peg$parseNEXT_N_MONTHS() {
     var s0;
 
-    if (input.substr(peg$currPos, 14).toLowerCase() === peg$c278) {
-      s0 = input.substr(peg$currPos, 14);
-      peg$currPos += 14;
+    if (input.substr(peg$currPos, 13).toLowerCase() === peg$c278) {
+      s0 = input.substr(peg$currPos, 13);
+      peg$currPos += 13;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c279); }
@@ -5656,9 +5824,9 @@ function peg$parse(input, options) {
   function peg$parseLAST_N_MONTHS() {
     var s0;
 
-    if (input.substr(peg$currPos, 14).toLowerCase() === peg$c280) {
-      s0 = input.substr(peg$currPos, 14);
-      peg$currPos += 14;
+    if (input.substr(peg$currPos, 13).toLowerCase() === peg$c280) {
+      s0 = input.substr(peg$currPos, 13);
+      peg$currPos += 13;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c281); }
@@ -5670,9 +5838,9 @@ function peg$parse(input, options) {
   function peg$parseNEXT_N_QUARTERS() {
     var s0;
 
-    if (input.substr(peg$currPos, 16).toLowerCase() === peg$c282) {
-      s0 = input.substr(peg$currPos, 16);
-      peg$currPos += 16;
+    if (input.substr(peg$currPos, 15).toLowerCase() === peg$c282) {
+      s0 = input.substr(peg$currPos, 15);
+      peg$currPos += 15;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c283); }
@@ -5684,9 +5852,9 @@ function peg$parse(input, options) {
   function peg$parseLAST_N_QUARTERS() {
     var s0;
 
-    if (input.substr(peg$currPos, 16).toLowerCase() === peg$c284) {
-      s0 = input.substr(peg$currPos, 16);
-      peg$currPos += 16;
+    if (input.substr(peg$currPos, 15).toLowerCase() === peg$c284) {
+      s0 = input.substr(peg$currPos, 15);
+      peg$currPos += 15;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c285); }
@@ -5698,9 +5866,9 @@ function peg$parse(input, options) {
   function peg$parseNEXT_N_YEARS() {
     var s0;
 
-    if (input.substr(peg$currPos, 13).toLowerCase() === peg$c286) {
-      s0 = input.substr(peg$currPos, 13);
-      peg$currPos += 13;
+    if (input.substr(peg$currPos, 12).toLowerCase() === peg$c286) {
+      s0 = input.substr(peg$currPos, 12);
+      peg$currPos += 12;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c287); }
@@ -5712,9 +5880,9 @@ function peg$parse(input, options) {
   function peg$parseLAST_N_YEARS() {
     var s0;
 
-    if (input.substr(peg$currPos, 13).toLowerCase() === peg$c288) {
-      s0 = input.substr(peg$currPos, 13);
-      peg$currPos += 13;
+    if (input.substr(peg$currPos, 12).toLowerCase() === peg$c288) {
+      s0 = input.substr(peg$currPos, 12);
+      peg$currPos += 12;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c289); }
@@ -5726,9 +5894,9 @@ function peg$parse(input, options) {
   function peg$parseNEXT_N_FISCAL_QUARTERS() {
     var s0;
 
-    if (input.substr(peg$currPos, 23).toLowerCase() === peg$c290) {
-      s0 = input.substr(peg$currPos, 23);
-      peg$currPos += 23;
+    if (input.substr(peg$currPos, 22).toLowerCase() === peg$c290) {
+      s0 = input.substr(peg$currPos, 22);
+      peg$currPos += 22;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c291); }
@@ -5740,9 +5908,9 @@ function peg$parse(input, options) {
   function peg$parseLAST_N_FISCAL_QUARTERS() {
     var s0;
 
-    if (input.substr(peg$currPos, 23).toLowerCase() === peg$c292) {
-      s0 = input.substr(peg$currPos, 23);
-      peg$currPos += 23;
+    if (input.substr(peg$currPos, 22).toLowerCase() === peg$c292) {
+      s0 = input.substr(peg$currPos, 22);
+      peg$currPos += 22;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c293); }
@@ -5754,9 +5922,9 @@ function peg$parse(input, options) {
   function peg$parseNEXT_N_FISCAL_YEARS() {
     var s0;
 
-    if (input.substr(peg$currPos, 20).toLowerCase() === peg$c294) {
-      s0 = input.substr(peg$currPos, 20);
-      peg$currPos += 20;
+    if (input.substr(peg$currPos, 19).toLowerCase() === peg$c294) {
+      s0 = input.substr(peg$currPos, 19);
+      peg$currPos += 19;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c295); }
@@ -5768,9 +5936,9 @@ function peg$parse(input, options) {
   function peg$parseLAST_N_FISCAL_YEARS() {
     var s0;
 
-    if (input.substr(peg$currPos, 20).toLowerCase() === peg$c296) {
-      s0 = input.substr(peg$currPos, 20);
-      peg$currPos += 20;
+    if (input.substr(peg$currPos, 19).toLowerCase() === peg$c296) {
+      s0 = input.substr(peg$currPos, 19);
+      peg$currPos += 19;
     } else {
       s0 = peg$FAILED;
       if (peg$silentFails === 0) { peg$fail(peg$c297); }
