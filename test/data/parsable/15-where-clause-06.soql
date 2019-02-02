@@ -1,0 +1,2 @@
+SELECT Id, SomeNumberField__c FROM Account
+WHERE SomeNumberField__c <= 10

@@ -1,0 +1,30 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['Name'],
+  }, {
+    type: 'FieldReference',
+    path: ['CreatedDate'],
+  }],
+  object: {
+    type: 'ObjectReference',
+    name: 'Account',
+  },
+  condition: {
+    type: 'ComparisonCondition',
+    operator: '>=',
+    field: {
+      type: 'FieldReference',
+      path: ['CreatedDate'],
+    },
+    value: {
+      type: 'dateLiteral',
+      value: 'LAST_N_DAYS',
+      argument: 1,
+    },
+  },
+}

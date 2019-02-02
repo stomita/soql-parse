@@ -1,0 +1,95 @@
+{
+   type: 'Query',
+   fields: [
+      {
+         type: 'FieldReference',
+         path: ['Id']
+      },
+      {
+         type: 'FieldReference',
+         path: ['SomeNumberField__c']
+      }
+   ],
+   object: {
+      type: 'ObjectReference',
+      name: 'Account'
+   },
+   condition: {
+      type: 'LogicalCondition',
+      operator: 'OR',
+      left: {
+         type: 'LogicalCondition',
+         operator: 'OR',
+         left: {
+            type: 'LogicalCondition',
+            operator: 'OR',
+            left: {
+               type: 'LogicalCondition',
+               operator: 'OR',
+               left: {
+                  type: 'ComparisonCondition',
+                  field: {
+                     type: 'FieldReference',
+                     path: ['CreatedDate']
+                  },
+                  operator: '<',
+                  value: {
+                     type: 'datetime',
+                     value: '1999-01-01T23:01:01+01:00'
+                  }
+               },
+               right: {
+                  type: 'ComparisonCondition',
+                  field: {
+                     type: 'FieldReference',
+                     path: ['CreatedDate']
+                  },
+                  operator: '<=',
+                  value: {
+                     type: 'datetime',
+                     value: '1999-01-01T23:01:01-08:00'
+                  }
+               }
+            },
+            right: {
+               type: 'ComparisonCondition',
+               field: {
+                  type: 'FieldReference',
+                  path: ['CreatedDate']
+               },
+               operator: '>',
+               value: {
+                  type: 'datetime',
+                  value: '1999-01-01T23:01:01Z'
+               }
+            }
+         },
+         right: {
+            type: 'ComparisonCondition',
+            field: {
+               type: 'FieldReference',
+               path: ['CreatedDate']
+            },
+            operator: '>=',
+            value: {
+               type: 'date',
+               value: '1999-01-01'
+            }
+         }
+      },
+      right: {
+         type: 'ComparisonCondition',
+         field: {
+            type: 'FieldReference',
+            path: [
+               'CreatedDate'
+            ]
+         },
+         operator: '=',
+         value: {
+            type: 'datetime',
+            value: '1999-01-01T23:01:01+01:00'
+         }
+      }
+   }
+}
