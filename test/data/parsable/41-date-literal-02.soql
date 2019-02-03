@@ -1,0 +1,3 @@
+SELECT Id, Name, CreatedDate
+FROM Account
+WHERE CreatedDate >= LAST_N_DAYS:1

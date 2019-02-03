@@ -1,0 +1,26 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Id'],
+  }, {
+    type: 'FieldReference',
+    path: ['SomeNumberField__c'],
+  }],
+  object: {
+    type: 'ObjectReference',
+    name: 'Account',
+  },
+  condition: {
+    type: 'ComparisonCondition',
+    operator: '<=',
+    field: {
+      type: 'FieldReference',
+      path: ['SomeNumberField__c'],
+    },
+    value: {
+      type: 'number',
+      value: 10,
+    },
+  },
+}
