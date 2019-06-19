@@ -1,0 +1,45 @@
+{
+  type: 'Query',
+  fields: [{
+    type: 'FieldReference',
+    path: ['Name'],
+  }, {
+    type: 'FunctionCall',
+    name: 'COUNT',
+    arguments: [{
+        type: 'FieldReference',
+        path: ['Id'],
+    }],
+    alias: 'c'
+  }],
+  object: {
+    type: 'ObjectReference',
+    name: 'Group',
+  },
+  condition: {
+    type: 'ComparisonCondition',
+    operator: '=',
+    field: {
+      type: 'FieldReference',
+      path: ['Type'],
+    },
+    value: {
+      type: 'string',
+      value: 'Queue',
+    },
+  },
+  group: {
+      type: 'Grouping',
+      fields: [{
+        type: 'FieldReference',
+        path: ['Name'],
+      }],
+  },
+  sort: [{
+    field: {
+      type: 'FieldReference',
+      path: ['Name'],
+    },
+    direction: 'ASC',
+  }],
+}

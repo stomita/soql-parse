@@ -114,7 +114,7 @@ FromClause =
   }
 
 ObjectReference =
-  name:Identifier alias:(__ (AS __)? Identifier)? {
+  name:ObjectIdentifier alias:(__ (AS __)? Identifier)? {
     return assign(
       {
         type: 'ObjectReference',
@@ -339,6 +339,14 @@ SubQueryFieldListItem = FieldExpr
 
 Identifier =
   id:([a-zA-Z][0-9a-zA-Z_]* { return text() }) & { return !isReserved(id) } { return id; }
+
+// 'Group' and 'Order' are valid sobjects to query from,
+// as well as are part of the reserved keywords 'GROUP BY' and 'ORDER BY',
+// so we need this special identifier pattern for FromClause
+ObjectIdentifier =
+  "GROUP"i { return text() }
+/ "ORDER"i { return text() }
+/ Identifier
 
 BindVariable =
   COLON identifier:Identifier {

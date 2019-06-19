@@ -1,0 +1,5 @@
+SELECT Name, COUNT(Id) c
+FROM Order
+WHERE Type = 'Standard'
+GROUP BY Name
+ORDER BY Name ASC
