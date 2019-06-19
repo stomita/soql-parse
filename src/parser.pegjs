@@ -607,98 +607,98 @@ DateLiteral =
     value: text()
   }
 }
-/ d:LAST_N_DAYS c:":" n:$(Digit+) {
+/ d:LAST_N_DAYS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:NEXT_N_DAYS c:":" n:$(Digit+) {
+/ d:NEXT_N_DAYS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:NEXT_N_WEEKS c:":" n:$(Digit+) {
+/ d:NEXT_N_WEEKS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:LAST_N_WEEKS c:":" n:$(Digit+) {
+/ d:LAST_N_WEEKS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:NEXT_N_MONTHS c:":" n:$(Digit+) {
+/ d:NEXT_N_MONTHS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:LAST_N_MONTHS c:":" n:$(Digit+) {
+/ d:LAST_N_MONTHS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:NEXT_N_QUARTERS c:":" n:$(Digit+) {
+/ d:NEXT_N_QUARTERS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:LAST_N_QUARTERS c:":" n:$(Digit+) {
+/ d:LAST_N_QUARTERS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:NEXT_N_YEARS c:":" n:$(Digit+) {
+/ d:NEXT_N_YEARS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:LAST_N_YEARS c:":" n:$(Digit+) {
+/ d:LAST_N_YEARS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:NEXT_N_FISCAL_QUARTERS c:":" n:$(Digit+) {
+/ d:NEXT_N_FISCAL_QUARTERS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:LAST_N_FISCAL_QUARTERS c:":" n:$(Digit+) {
+/ d:LAST_N_FISCAL_QUARTERS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:NEXT_N_FISCAL_YEARS c:":" n:$(Digit+) {
+/ d:NEXT_N_FISCAL_YEARS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
     argument: parseInt(n)
   }
 }
-/ d:LAST_N_FISCAL_YEARS c:":" n:$(Digit+) {
+/ d:LAST_N_FISCAL_YEARS c:_":"_ n:$(Digit+) {
   return {
     type: 'dateLiteral',
     value: d,
