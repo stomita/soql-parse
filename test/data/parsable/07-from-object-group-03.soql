@@ -1,0 +1,5 @@
+SELECT Name, COUNT(Id) c
+FROM Group
+WHERE Type = 'Queue'
+GROUP BY Name
+ORDER BY Name ASC

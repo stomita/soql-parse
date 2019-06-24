@@ -1,0 +1,619 @@
+{
+   type: 'Query',
+   fields: [
+      {
+         type: 'FieldReference',
+         path: ['Id']
+      },
+      {
+         type: 'FieldReference',
+         path: ['SomeNumberField__c']
+      }
+   ],
+   object: {
+      type: 'ObjectReference',
+      name: 'Account'
+   },
+   condition: {
+      type: 'LogicalCondition',
+      operator: 'OR',
+      left: {
+         type: 'LogicalCondition',
+         operator: 'OR',
+         left: {
+            type: 'LogicalCondition',
+            operator: 'OR',
+            left: {
+               type: 'LogicalCondition',
+               operator: 'OR',
+               left: {
+                  type: 'LogicalCondition',
+                  operator: 'OR',
+                  left: {
+                     type: 'LogicalCondition',
+                     operator: 'OR',
+                     left: {
+                        type: 'LogicalCondition',
+                        operator: 'OR',
+                        left: {
+                           type: 'LogicalCondition',
+                           operator: 'OR',
+                           left: {
+                              type: 'LogicalCondition',
+                              operator: 'OR',
+                              left: {
+                                 type: 'LogicalCondition',
+                                 operator: 'OR',
+                                 left: {
+                                    type: 'LogicalCondition',
+                                    operator: 'OR',
+                                    left: {
+                                       type: 'LogicalCondition',
+                                       operator: 'OR',
+                                       left: {
+                                          type: 'LogicalCondition',
+                                          operator: 'OR',
+                                          left: {
+                                             type: 'LogicalCondition',
+                                             operator: 'OR',
+                                             left: {
+                                                type: 'LogicalCondition',
+                                                operator: 'OR',
+                                                left: {
+                                                   type: 'LogicalCondition',
+                                                   operator: 'OR',
+                                                   left: {
+                                                      type: 'LogicalCondition',
+                                                      operator: 'OR',
+                                                      left: {
+                                                         type: 'LogicalCondition',
+                                                         operator: 'OR',
+                                                         left: {
+                                                            type: 'LogicalCondition',
+                                                            operator: 'OR',
+                                                            left: {
+                                                               type: 'LogicalCondition',
+                                                               operator: 'OR',
+                                                               left: {
+                                                                  type: 'LogicalCondition',
+                                                                  operator: 'OR',
+                                                                  left: {
+                                                                     type: 'LogicalCondition',
+                                                                     operator: 'OR',
+                                                                     left: {
+                                                                        type: 'LogicalCondition',
+                                                                        operator: 'OR',
+                                                                        left: {
+                                                                           type: 'LogicalCondition',
+                                                                           operator: 'OR',
+                                                                           left: {
+                                                                              type: 'LogicalCondition',
+                                                                              operator: 'OR',
+                                                                              left: {
+                                                                                 type: 'LogicalCondition',
+                                                                                 operator: 'OR',
+                                                                                 left: {
+                                                                                    type: 'LogicalCondition',
+                                                                                    operator: 'OR',
+                                                                                    left: {
+                                                                                       type: 'LogicalCondition',
+                                                                                       operator: 'OR',
+                                                                                       left: {
+                                                                                          type: 'LogicalCondition',
+                                                                                          operator: 'OR',
+                                                                                          left: {
+                                                                                             type: 'LogicalCondition',
+                                                                                             operator: 'OR',
+                                                                                             left: {
+                                                                                                type: 'LogicalCondition',
+                                                                                                operator: 'OR',
+                                                                                                left: {
+                                                                                                   type: 'LogicalCondition',
+                                                                                                   operator: 'OR',
+                                                                                                   left: {
+                                                                                                      type: 'LogicalCondition',
+                                                                                                      operator: 'OR',
+                                                                                                      left: {
+                                                                                                         type: 'LogicalCondition',
+                                                                                                         operator: 'OR',
+                                                                                                         left: {
+                                                                                                            type: 'LogicalCondition',
+                                                                                                            operator: 'OR',
+                                                                                                            left: {
+                                                                                                               type: 'LogicalCondition',
+                                                                                                               operator: 'OR',
+                                                                                                               left: {
+                                                                                                                  type: 'ComparisonCondition',
+                                                                                                                  field: {
+                                                                                                                     type: 'FieldReference',
+                                                                                                                     path: ['CreadedDate']
+                                                                                                                  },
+                                                                                                                  operator: '=',
+                                                                                                                  value: {
+                                                                                                                     type: 'dateLiteral',
+                                                                                                                     value: 'YESTERDAY'
+                                                                                                                  }
+                                                                                                               },
+                                                                                                               right: {
+                                                                                                                  type: 'ComparisonCondition',
+                                                                                                                  field: {
+                                                                                                                     type: 'FieldReference',
+                                                                                                                     path: ['CreadedDate']
+                                                                                                                  },
+                                                                                                                  operator: '=',
+                                                                                                                  value: {
+                                                                                                                     type: 'dateLiteral',
+                                                                                                                     value: 'TODAY'
+                                                                                                                  }
+                                                                                                               }
+                                                                                                            },
+                                                                                                            right: {
+                                                                                                               type: 'ComparisonCondition',
+                                                                                                               field: {
+                                                                                                                  type: 'FieldReference',
+                                                                                                                  path: ['CreadedDate']
+                                                                                                               },
+                                                                                                               operator: '=',
+                                                                                                               value: {
+                                                                                                                  type: 'dateLiteral',
+                                                                                                                  value: 'TOMORROW'
+                                                                                                               }
+                                                                                                            }
+                                                                                                         },
+                                                                                                         right: {
+                                                                                                            type: 'ComparisonCondition',
+                                                                                                            field: {
+                                                                                                               type: 'FieldReference',
+                                                                                                               path: ['CreadedDate']
+                                                                                                            },
+                                                                                                            operator: '=',
+                                                                                                            value: {
+                                                                                                               type: 'dateLiteral',
+                                                                                                               value: 'LAST_WEEK'
+                                                                                                            }
+                                                                                                         }
+                                                                                                      },
+                                                                                                      right: {
+                                                                                                         type: 'ComparisonCondition',
+                                                                                                         field: {
+                                                                                                            type: 'FieldReference',
+                                                                                                            path: ['CreadedDate']
+                                                                                                         },
+                                                                                                         operator: '=',
+                                                                                                         value: {
+                                                                                                            type: 'dateLiteral',
+                                                                                                            value: 'THIS_WEEK'
+                                                                                                         }
+                                                                                                      }
+                                                                                                   },
+                                                                                                   right: {
+                                                                                                      type: 'ComparisonCondition',
+                                                                                                      field: {
+                                                                                                         type: 'FieldReference',
+                                                                                                         path: ['CreadedDate']
+                                                                                                      },
+                                                                                                      operator: '=',
+                                                                                                      value: {
+                                                                                                         type: 'dateLiteral',
+                                                                                                         value: 'NEXT_WEEK'
+                                                                                                      }
+                                                                                                   }
+                                                                                                },
+                                                                                                right: {
+                                                                                                   type: 'ComparisonCondition',
+                                                                                                   field: {
+                                                                                                      type: 'FieldReference',
+                                                                                                      path: ['CreadedDate']
+                                                                                                   },
+                                                                                                   operator: '=',
+                                                                                                   value: {
+                                                                                                      type: 'dateLiteral',
+                                                                                                      value: 'LAST_MONTH'
+                                                                                                   }
+                                                                                                }
+                                                                                             },
+                                                                                             right: {
+                                                                                                type: 'ComparisonCondition',
+                                                                                                field: {
+                                                                                                   type: 'FieldReference',
+                                                                                                   path: ['CreadedDate']
+                                                                                                },
+                                                                                                operator: '=',
+                                                                                                value: {
+                                                                                                   type: 'dateLiteral',
+                                                                                                   value: 'THIS_MONTH'
+                                                                                                }
+                                                                                             }
+                                                                                          },
+                                                                                          right: {
+                                                                                             type: 'ComparisonCondition',
+                                                                                             field: {
+                                                                                                type: 'FieldReference',
+                                                                                                path: ['CreadedDate']
+                                                                                             },
+                                                                                             operator: '=',
+                                                                                             value: {
+                                                                                                type: 'dateLiteral',
+                                                                                                value: 'NEXT_MONTH'
+                                                                                             }
+                                                                                          }
+                                                                                       },
+                                                                                       right: {
+                                                                                          type: 'ComparisonCondition',
+                                                                                          field: {
+                                                                                             type: 'FieldReference',
+                                                                                             path: ['CreadedDate']
+                                                                                          },
+                                                                                          operator: '=',
+                                                                                          value: {
+                                                                                             type: 'dateLiteral',
+                                                                                             value: 'LAST_90_DAYS'
+                                                                                          }
+                                                                                       }
+                                                                                    },
+                                                                                    right: {
+                                                                                       type: 'ComparisonCondition',
+                                                                                       field: {
+                                                                                          type: 'FieldReference',
+                                                                                          path: ['CreadedDate']
+                                                                                       },
+                                                                                       operator: '=',
+                                                                                       value: {
+                                                                                          type: 'dateLiteral',
+                                                                                          value: 'NEXT_90_DAYS'
+                                                                                       }
+                                                                                    }
+                                                                                 },
+                                                                                 right: {
+                                                                                    type: 'ComparisonCondition',
+                                                                                    field: {
+                                                                                       type: 'FieldReference',
+                                                                                       path: ['CreadedDate']
+                                                                                    },
+                                                                                    operator: '=',
+                                                                                    value: {
+                                                                                       type: 'dateLiteral',
+                                                                                       value: 'THIS_QUARTER'
+                                                                                    }
+                                                                                 }
+                                                                              },
+                                                                              right: {
+                                                                                 type: 'ComparisonCondition',
+                                                                                 field: {
+                                                                                    type: 'FieldReference',
+                                                                                    path: ['CreadedDate']
+                                                                                 },
+                                                                                 operator: '=',
+                                                                                 value: {
+                                                                                    type: 'dateLiteral',
+                                                                                    value: 'LAST_QUARTER'
+                                                                                 }
+                                                                              }
+                                                                           },
+                                                                           right: {
+                                                                              type: 'ComparisonCondition',
+                                                                              field: {
+                                                                                 type: 'FieldReference',
+                                                                                 path: ['CreadedDate']
+                                                                              },
+                                                                              operator: '=',
+                                                                              value: {
+                                                                                 type: 'dateLiteral',
+                                                                                 value: 'NEXT_QUARTER'
+                                                                              }
+                                                                           }
+                                                                        },
+                                                                        right: {
+                                                                           type: 'ComparisonCondition',
+                                                                           field: {
+                                                                              type: 'FieldReference',
+                                                                              path: ['CreadedDate']
+                                                                           },
+                                                                           operator: '=',
+                                                                           value: {
+                                                                              type: 'dateLiteral',
+                                                                              value: 'THIS_YEAR'
+                                                                           }
+                                                                        }
+                                                                     },
+                                                                     right: {
+                                                                        type: 'ComparisonCondition',
+                                                                        field: {
+                                                                           type: 'FieldReference',
+                                                                           path: ['CreadedDate']
+                                                                        },
+                                                                        operator: '=',
+                                                                        value: {
+                                                                           type: 'dateLiteral',
+                                                                           value: 'LAST_YEAR'
+                                                                        }
+                                                                     }
+                                                                  },
+                                                                  right: {
+                                                                     type: 'ComparisonCondition',
+                                                                     field: {
+                                                                        type: 'FieldReference',
+                                                                        path: ['CreadedDate']
+                                                                     },
+                                                                     operator: '=',
+                                                                     value: {
+                                                                        type: 'dateLiteral',
+                                                                        value: 'NEXT_YEAR'
+                                                                     }
+                                                                  }
+                                                               },
+                                                               right: {
+                                                                  type: 'ComparisonCondition',
+                                                                  field: {
+                                                                     type: 'FieldReference',
+                                                                     path: ['CreadedDate']
+                                                                  },
+                                                                  operator: '=',
+                                                                  value: {
+                                                                     type: 'dateLiteral',
+                                                                     value: 'THIS_FISCAL_QUARTER'
+                                                                  }
+                                                               }
+                                                            },
+                                                            right: {
+                                                               type: 'ComparisonCondition',
+                                                               field: {
+                                                                  type: 'FieldReference',
+                                                                  path: ['CreadedDate']
+                                                               },
+                                                               operator: '=',
+                                                               value: {
+                                                                  type: 'dateLiteral',
+                                                                  value: 'LAST_FISCAL_QUARTER'
+                                                               }
+                                                            }
+                                                         },
+                                                         right: {
+                                                            type: 'ComparisonCondition',
+                                                            field: {
+                                                               type: 'FieldReference',
+                                                               path: ['CreadedDate']
+                                                            },
+                                                            operator: '=',
+                                                            value: {
+                                                               type: 'dateLiteral',
+                                                               value: 'NEXT_FISCAL_QUARTER'
+                                                            }
+                                                         }
+                                                      },
+                                                      right: {
+                                                         type: 'ComparisonCondition',
+                                                         field: {
+                                                            type: 'FieldReference',
+                                                            path: ['CreadedDate']
+                                                         },
+                                                         operator: '=',
+                                                         value: {
+                                                            type: 'dateLiteral',
+                                                            value: 'THIS_FISCAL_YEAR'
+                                                         }
+                                                      }
+                                                   },
+                                                   right: {
+                                                      type: 'ComparisonCondition',
+                                                      field: {
+                                                         type: 'FieldReference',
+                                                         path: ['CreadedDate']
+                                                      },
+                                                      operator: '=',
+                                                      value: {
+                                                         type: 'dateLiteral',
+                                                         value: 'LAST_FISCAL_YEAR'
+                                                      }
+                                                   }
+                                                },
+                                                right: {
+                                                   type: 'ComparisonCondition',
+                                                   field: {
+                                                      type: 'FieldReference',
+                                                      path: ['CreadedDate']
+                                                   },
+                                                   operator: '=',
+                                                   value: {
+                                                      type: 'dateLiteral',
+                                                      value: 'NEXT_FISCAL_YEAR'
+                                                   }
+                                                }
+                                             },
+                                             right: {
+                                                type: 'ComparisonCondition',
+                                                field: {
+                                                   type: 'FieldReference',
+                                                   path: ['CreadedDate']
+                                                },
+                                                operator: '=',
+                                                value: {
+                                                   type: 'dateLiteral',
+                                                   value: 'LAST_N_DAYS',
+                                                   argument: 12
+                                                }
+                                             }
+                                          },
+                                          right: {
+                                             type: 'ComparisonCondition',
+                                             field: {
+                                                type: 'FieldReference',
+                                                path: ['CreadedDate']
+                                             },
+                                             operator: '=',
+                                             value: {
+                                                type: 'dateLiteral',
+                                                value: 'NEXT_N_DAYS',
+                                                argument: 12
+                                             }
+                                          }
+                                       },
+                                       right: {
+                                          type: 'ComparisonCondition',
+                                          field: {
+                                             type: 'FieldReference',
+                                             path: ['CreadedDate']
+                                          },
+                                          operator: '=',
+                                          value: {
+                                             type: 'dateLiteral',
+                                             value: 'NEXT_N_WEEKS',
+                                             argument: 12
+                                          }
+                                       }
+                                    },
+                                    right: {
+                                       type: 'ComparisonCondition',
+                                       field: {
+                                          type: 'FieldReference',
+                                          path: ['CreadedDate']
+                                       },
+                                       operator: '=',
+                                       value: {
+                                          type: 'dateLiteral',
+                                          value: 'LAST_N_WEEKS',
+                                          argument: 12
+                                       }
+                                    }
+                                 },
+                                 right: {
+                                    type: 'ComparisonCondition',
+                                    field: {
+                                       type: 'FieldReference',
+                                       path: ['CreadedDate']
+                                    },
+                                    operator: '=',
+                                    value: {
+                                       type: 'dateLiteral',
+                                       value: 'NEXT_N_MONTHS',
+                                       argument: 12
+                                    }
+                                 }
+                              },
+                              right: {
+                                 type: 'ComparisonCondition',
+                                 field: {
+                                    type: 'FieldReference',
+                                    path: ['CreadedDate']
+                                 },
+                                 operator: '=',
+                                 value: {
+                                    type: 'dateLiteral',
+                                    value: 'LAST_N_MONTHS',
+                                    argument: 12
+                                 }
+                              }
+                           },
+                           right: {
+                              type: 'ComparisonCondition',
+                              field: {
+                                 type: 'FieldReference',
+                                 path: ['CreadedDate']
+                              },
+                              operator: '=',
+                              value: {
+                                 type: 'dateLiteral',
+                                 value: 'NEXT_N_QUARTERS',
+                                 argument: 12
+                              }
+                           }
+                        },
+                        right: {
+                           type: 'ComparisonCondition',
+                           field: {
+                              type: 'FieldReference',
+                              path: ['CreadedDate']
+                           },
+                           operator: '=',
+                           value: {
+                              type: 'dateLiteral',
+                              value: 'LAST_N_QUARTERS',
+                              argument: 12
+                           }
+                        }
+                     },
+                     right: {
+                        type: 'ComparisonCondition',
+                        field: {
+                           type: 'FieldReference',
+                           path: ['CreadedDate']
+                        },
+                        operator: '=',
+                        value: {
+                           type: 'dateLiteral',
+                           value: 'NEXT_N_YEARS',
+                           argument: 12
+                        }
+                     }
+                  },
+                  right: {
+                     type: 'ComparisonCondition',
+                     field: {
+                        type: 'FieldReference',
+                        path: ['CreadedDate']
+                     },
+                     operator: '=',
+                     value: {
+                        type: 'dateLiteral',
+                        value: 'LAST_N_YEARS',
+                        argument: 12
+                     }
+                  }
+               },
+               right: {
+                  type: 'ComparisonCondition',
+                  field: {
+                     type: 'FieldReference',
+                     path: ['CreadedDate']
+                  },
+                  operator: '=',
+                  value: {
+                     type: 'dateLiteral',
+                     value: 'NEXT_N_FISCAL_QUARTERS',
+                     argument: 12
+                  }
+               }
+            },
+            right: {
+               type: 'ComparisonCondition',
+               field: {
+                  type: 'FieldReference',
+                  path: ['CreadedDate']
+               },
+               operator: '=',
+               value: {
+                  type: 'dateLiteral',
+                  value: 'LAST_N_FISCAL_QUARTERS',
+                  argument: 12
+               }
+            }
+         },
+         right: {
+            type: 'ComparisonCondition',
+            field: {
+               type: 'FieldReference',
+               path: ['CreadedDate']
+            },
+            operator: '=',
+            value: {
+               type: 'dateLiteral',
+               value: 'NEXT_N_FISCAL_YEARS',
+               argument: 12
+            }
+         }
+      },
+      right: {
+         type: 'ComparisonCondition',
+         field: {
+            type: 'FieldReference',
+            path: ['CreadedDate']
+         },
+         operator: '=',
+         value: {
+            type: 'dateLiteral',
+            value: 'LAST_N_FISCAL_YEARS',
+            argument: 12
+         }
+      }
+   }
+}
