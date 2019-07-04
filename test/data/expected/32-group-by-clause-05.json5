@@ -1,0 +1,92 @@
+{
+  type: 'Query',
+  fields: [ {
+    type: 'FieldReference',
+    path: ['LeadSource'],
+  }, {
+    type: 'FunctionCall',
+    name: 'COUNT',
+    arguments: [{
+      type: 'FieldReference',
+      path: ['Name'],
+    }],
+    alias: 'nameCount'
+  }],
+  object: {
+    type: 'ObjectReference',
+    name: 'Lead',
+  },
+  condition: {
+    type: 'ComparisonCondition',
+    field: {
+      type: 'FieldReference',
+      path: ['LeadSource'],
+    },
+    operator: '=',
+    value: {
+      type: 'string',
+      value: 'Web'
+    },
+  },
+  group: {
+    type: 'Grouping',
+    fields: [{
+      type: 'FieldReference',
+      path: ['LeadSource'],
+    }],
+  },
+  aggregateCondition: {
+    type: 'LogicalCondition',
+    operator: 'OR',
+    left: {
+      type: 'LogicalCondition',
+      operator: 'AND',
+      left: {
+        type: 'ComparisonCondition',
+        field: {
+          type: 'FieldReference',
+          path: ['LeadSource'],
+        },
+        operator: '=',
+        value: {
+          type: 'string',
+          value: 'Web',
+        },
+      },
+      right: {
+        type: 'ComparisonCondition',
+        field: {
+          type: 'FunctionCall',
+          name: 'COUNT',
+          arguments: [{
+            type: 'FieldReference',
+            path: ['Name'],
+          }],
+        },
+        operator: '>',
+        value: {
+          type: 'number',
+          value: 10,
+        },
+      },
+      parentheses: true
+    },
+    right: {
+      type: 'ComparisonCondition',
+      field: {
+        type: 'FunctionCall',
+        name: 'COUNT',
+        arguments: [{
+          type: 'FieldReference',
+          path: ['Name'],
+        }],
+      },
+      operator: '>',
+      value: {
+        type: 'number',
+        value: 20,
+      },
+      parentheses: true
+    },
+  },
+}

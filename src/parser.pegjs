@@ -17,7 +17,7 @@
   }
 
   function isReserved(word) {
-    return /^(SELECT|FROM|AS|USING|WHERE|AND|OR|NOT|GROUP|BY|ORDER|LIMIT|OFFSET|FOR|TRUE|FALSE|NULL)$/i.test(word);
+    return /^(SELECT|FROM|AS|USING|WHERE|AND|OR|NOT|GROUP|BY|ORDER|HAVING|LIMIT|OFFSET|FOR|TRUE|FALSE|NULL)$/i.test(word);
   }
 }
 
@@ -28,6 +28,7 @@ Query =
   scope:(__ ScopeClause)?
   condition:(__ WhereClause)?
   group:(__ GroupByClause)?
+  aggregateCondition:(__ HavingClause)?
   sort:(__ OrderByClause)?
   limit:(__ LimitClause)?
   offset:(__ OffsetClause)?
@@ -42,6 +43,7 @@ Query =
       scope ? { scope: scope[1] } : {},
       condition ? { condition: condition[1] } : {},
       group ? { group: group[1] } : {},
+      aggregateCondition ? { aggregateCondition: aggregateCondition[1] } : {},
       sort ? { sort: sort[1] } : {},
       limit ? { limit: limit[1] } : {},
       offset ? { offset: offset[1] } : {},
@@ -251,6 +253,11 @@ GroupItemList =
 
 GroupItem =
   FieldExpr
+
+HavingClause =
+  HAVING __ condition: Condition {
+    return condition
+  }
 
 OrderByClause =
   ORDER __ BY __ sort:SortItemList {
@@ -755,6 +762,7 @@ AND      = "AND"i
 NOT      = "NOT"i
 GROUP    = "GROUP"i
 BY       = "BY"i
+HAVING   = "HAVING"i
 ROLLUP   = "ROLLUP"i
 CUBE     = "CUBE"i
 ORDER    = "ORDER"i
