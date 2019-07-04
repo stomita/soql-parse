@@ -1,0 +1,42 @@
+{
+  type: 'Query',
+  fields: [ {
+    type: 'FieldReference',
+    path: ['LeadSource'],
+  }, {
+    type: 'FunctionCall',
+    name: 'COUNT',
+    arguments: [{
+      type: 'FieldReference',
+      path: ['Name'],
+    }],
+    alias: 'nameCount'
+  }],
+  object: {
+    type: 'ObjectReference',
+    name: 'Lead',
+  },
+  group: {
+    type: 'Grouping',
+    fields: [{
+      type: 'FieldReference',
+      path: ['LeadSource'],
+    }],
+  },
+  aggregateCondition: {
+    type: 'ComparisonCondition',
+    field: {
+        type: 'FunctionCall',
+        name: 'COUNT',
+        arguments: [{
+            type: 'FieldReference',
+            path: ['Name'],
+        }],
+    },
+    operator: '>',
+    value: {
+      type: 'number',
+      value: 100,
+    },
+  },
+}

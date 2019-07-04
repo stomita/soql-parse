@@ -1,0 +1,8 @@
+SELECT LeadSource, COUNT(Name) nameCount
+FROM Lead
+WHERE LeadSource = 'Web'
+GROUP BY LeadSource
+HAVING
+  ( LeadSource = 'Web' AND COUNT(Name) > 10 )
+  OR
+  ( COUNT( Name ) > 20 )
